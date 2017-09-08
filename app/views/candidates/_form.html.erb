@@ -1,0 +1,38 @@
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <td><%=f.text_field(:name) %></td>
+  </tr>
+  <tr>
+    <th>Add passport size photo</th>
+    <td><%=f.file_field :image %></td>
+  </tr>
+  <tr>
+    <th>Father's name</th>
+    <td><%=f.text_field(:father_name) %></td>
+  </tr>
+  <tr>
+    <th>Mother's Name</th>
+    <td><%=f.text_field(:mother_name) %></td>
+  </tr>
+  <tr>
+    <th>Education</th>
+    <td><%=f.select(:education, ['Not Applicable', 'Kindergarten', '1st', '2nd', '3rd', '4th', '5th','6th','7th','8th','9th','10th','11th']) %></td>
+  </tr>
+  <tr>
+    <th>Marksheet</th>
+    <td><%=f.file_field :marksheet %></td>
+  </tr>
+  <tr>
+    <th>Contact Address</th>
+    <td><%=f.text_area :contact_address, size: "40x3" %></td>
+  </tr>
+  <tr>
+    <th>Parent Contact Number</th>
+    <td><%=f.telephone_field(:parent_contact_number) %></td>
+  </tr>
+  <tr>
+    <th>Parent Alternate Contact Number</th>
+    <td><%=f.telephone_field(:alternate_parent_contact_number) %></td>
+  </tr>
+</table>

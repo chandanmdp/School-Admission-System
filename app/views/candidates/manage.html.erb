@@ -1,0 +1,32 @@
+<div class="container">
+  <%= link_to("<< Back to Candidate show page", section_candidate_path(@section, @candidate), class:'btn btn-primary')%>
+  <br>
+
+    <% if @candidate.marksheet.present? %>
+      <table class="table">
+      <tr>
+        <th class="text-center">Candidate's Marksheet</th>
+      </tr>
+      <tr>
+        <td class="text-center"><%= image_tag @candidate.marksheet.url(:ex_large) %></td>
+      </tr>
+    </table>
+    <% end %>
+  <h3  class="text-center bg-info">Manage Candidate's Admission</h3>
+  <br>
+  <%= form_for @candidate, url: section_candidate_path do |f| %>
+    <table class="table">
+      <tr>
+        <th><%= f.label(:admission_status, "Name") %></th>
+        <td><%=f.select(:admission_status, ['Under Process', 'Selected', 'Rejected']) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label(:rejection_reason)%></th>
+        <td><%= f.text_area :rejection_reason, size: "40x3" %></td>
+      </tr>
+    </table>
+    <div class="text-center">
+    <%=f.submit("Manage Candidate Admission")%>
+    </div>
+  <% end %>
+</div>

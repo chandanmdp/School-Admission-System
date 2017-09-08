@@ -1,0 +1,8 @@
+<div class="container">
+  <%= link_to("<<Back to Section List", sections_path(@section), class:'btn btn-primary') %>
+  <h2 class="text-center">Update Section</h2>
+  <%= form_for @section do |f| %>
+    <%= render partial: 'form', locals: {f: f} %>
+    <%=f.submit("Update Section")%>
+  <% end %>
+</div>

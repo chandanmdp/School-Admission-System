@@ -1,0 +1,25 @@
+<div class="candidates index">
+  <h2>Candidates</h2>
+<%= link_to("Add New Candidate", new_candidate_path, class:'action new') %>
+
+  <table class="listing" summary="Subject list">
+    <tr class="header">
+      <th>Candidate</th>
+      <th>Father's name</th>
+      <th>Previous Grade</th>
+    </tr>
+    <% @candidates.each do |candidate| %>
+    <tr>
+      <td class="center"><%= candidate.name %></td>
+      <td class="center"><%= candidate.father_name %></td>
+      <td class="center"><%= candidate.education %></td>
+      <td class="actions">
+        <%= link_to("Show Candidate", candidate_path(candidate), class:'action show')%>
+        <%= link_to("Edit Candidate", edit_candidate_path(candidate), class:'action edit')%>
+
+      </td>
+    </tr>
+    <% end %>
+  </table>
+
+</div>
