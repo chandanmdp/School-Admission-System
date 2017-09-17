@@ -1,5 +1,6 @@
 <div class="container">
   <%= link_to("<< Back to Candidate show page", section_candidate_path(@section, @candidate), class:'btn btn-primary')%>
+  <%= error_messages_for(@candidate) %>
   <br>
 
     <% if @candidate.marksheet.present? %>
@@ -12,7 +13,7 @@
       </tr>
     </table>
     <% end %>
-  <h3  class="text-center bg-info">Manage Candidate's Admission</h3>
+  <h3  class="text-center bg-primary">Manage Candidate's Admission</h3>
   <br>
   <%= form_for @candidate, url: section_candidate_path do |f| %>
     <table class="table">

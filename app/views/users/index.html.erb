@@ -1,0 +1,12 @@
+<div class="container">
+  <ul>
+      <% @users.each do |user| %>
+        <li>
+          <%= link_to user.name, user %> 
+          <%= link_to "delete", user, method: :delete,
+                                  data: { confirm: "You sure?" },class:"btn btn-info btn-xs" %>
+        </li>
+      <% end %>
+    </ul>
+
+</div>

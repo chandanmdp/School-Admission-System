@@ -1,0 +1,11 @@
+<%= error_messages_for(f.object) %>
+<table class="table">
+  <tr>
+    <th class="col-md-2"><%= f.label :title, "Eligibility Title" %></th>
+    <td class="col-md-4"><%= f.text_field :title, size:60 %></td>
+  </tr>
+  <tr>
+    <th class="col-md-2"><%= f.label :criteria, "Eligibility Criteria" %></th>
+    <td class="col-md-4"><%= f.text_area :criteria, size: '80x6'  %></td>
+  </tr>
+</table>

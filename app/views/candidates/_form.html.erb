@@ -1,3 +1,4 @@
+<%= error_messages_for(f.object) %>
 <table class="table">
   <tr>
     <th>Name</th>
@@ -32,7 +33,7 @@
     <td><%=f.telephone_field(:parent_contact_number) %></td>
   </tr>
   <tr>
-    <th>Parent Alternate Contact Number</th>
+    <th>Alternate Parent Contact Number</th>
     <td><%=f.telephone_field(:alternate_parent_contact_number) %></td>
   </tr>
 </table>

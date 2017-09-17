@@ -1,0 +1,27 @@
+<div class="container">
+  <%= link_to("<<Back to menu page", access_menu_path, class:"btn btn-primary") %>
+  <h2 class="text-center bg-primary">Notices for Candidates</h2>
+  <% if @notices.size %>
+    <% @notices.each do |notice| %>
+      <table class="table">
+        <tr>
+          <th class="text-center"><%= notice.notice_title %></th>
+          <td class="text-center col-sm-2">
+            <%= link_to("Show", notice_path(notice), class:'btn btn-info btn-xs')%>
+            <% if logged_in? %>
+              <% if current_user.admin? %>
+                <%= link_to("Edit", edit_notice_path(notice), class:'btn btn-info btn-xs')%>
+                <%= link_to 'Destroy', notice_path(notice), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+  <% if logged_in? %>
+    <% if current_user.admin? %>
+      <%= link_to("Add New Notice", new_notice_path, class:'btn btn-primary') %>
+    <% end %>
+  <% end %>  
+</div>

@@ -1,0 +1,8 @@
+<div class="container bg-info">
+  <%= link_to("<<Back to Notice List", notices_path, class:'btn btn-primary') %>
+  <h2 class="text-center bg-primary">Update Notice</h2>
+  <%= form_for @notice do |f| %>
+    <%= render partial: 'form', locals: {f: f} %>
+    <%=f.submit("Update Notice")%>
+  <% end %>
+</div>

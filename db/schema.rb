@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908103424) do
+ActiveRecord::Schema.define(version: 20170914055451) do
 
   create_table "candidates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
@@ -30,10 +30,26 @@ ActiveRecord::Schema.define(version: 20170908103424) do
     t.string "marksheet_content_type"
     t.integer "marksheet_file_size"
     t.datetime "marksheet_updated_at"
-    t.bigint "section_id"
     t.string "admission_status", default: "Under Process"
     t.text "rejection_reason"
+    t.bigint "section_id"
+    t.bigint "user_id"
     t.index ["section_id"], name: "index_candidates_on_section_id"
+    t.index ["user_id"], name: "index_candidates_on_user_id"
+  end
+
+  create_table "eligibilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "title"
+    t.text "criteria"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "notice_title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -42,5 +58,16 @@ ActiveRecord::Schema.define(version: 20170908103424) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "name"
+    t.string "username"
+    t.string "email", default: "", null: false
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "admin", default: false
+  end
+
   add_foreign_key "candidates", "sections"
+  add_foreign_key "candidates", "users"
 end

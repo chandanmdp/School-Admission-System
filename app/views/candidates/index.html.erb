@@ -1,25 +1,25 @@
-<div class="candidates index">
-  <h2>Candidates</h2>
-<%= link_to("Add New Candidate", new_candidate_path, class:'action new') %>
-
-  <table class="listing" summary="Subject list">
-    <tr class="header">
-      <th>Candidate</th>
-      <th>Father's name</th>
-      <th>Previous Grade</th>
-    </tr>
-    <% @candidates.each do |candidate| %>
+<div class="container">
+  <%= link_to("<<Back to menu page", access_menu_path, class:"btn btn-primary") %>
+  <h2 class="text-center bg-primary">Admission Status of Candidates</h2>
+  <br>
+  <table class="table">
     <tr>
-      <td class="center"><%= candidate.name %></td>
-      <td class="center"><%= candidate.father_name %></td>
-      <td class="center"><%= candidate.education %></td>
-      <td class="actions">
-        <%= link_to("Show Candidate", candidate_path(candidate), class:'action show')%>
-        <%= link_to("Edit Candidate", edit_candidate_path(candidate), class:'action edit')%>
-
-      </td>
+      <th>Name</th>
+      <th>Father's Name</th>
+      <th>Section Name</th>
+      <th>Admission Status</th>
+      <th>Rejection Reason</th>
     </tr>
+  <% @candidates.each do |candidate| %>
+  <tr>
+    <td><%= candidate.name %></td>
+    <td><%= candidate.father_name %></td>
+    <td><%= candidate.section.section_name %></td>
+    <td><%= candidate.admission_status %></td>
+    <% if candidate.rejection_reason.present? %>
+      <td><%= candidate.rejection_reason %></td>
     <% end %>
-  </table>
-
+  </tr>
+  <% end %>
+</table>
 </div>

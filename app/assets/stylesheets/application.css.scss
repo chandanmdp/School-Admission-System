@@ -18,3 +18,21 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+div h2{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+div h3{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

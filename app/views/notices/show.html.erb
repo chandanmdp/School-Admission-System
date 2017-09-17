@@ -1,0 +1,11 @@
+<div class="container">
+  <%= link_to("<< Back to Notice List", notices_path, class:'btn btn-primary') %>
+  <table class="table">
+    <tr>
+      <td class="text-center"><h3><%= @notice.notice_title %></h3></td>
+    </tr>
+    <tr>
+      <td class="text-center"><%= @notice.content %></td>
+    </tr>
+  </table>
+</div>

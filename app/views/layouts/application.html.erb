@@ -9,6 +9,14 @@
   </head>
 
   <body class= "bg-info">
+    <%= render 'layouts/header' %>
+
+    <% if !flash[:notice].blank? %>
+      <div class="text-center bg-success">
+        <h4><%= flash[:notice] %></h4>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
