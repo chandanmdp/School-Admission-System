@@ -1,23 +1,23 @@
 <%= error_messages_for(f.object) %>
 <table class="table">
   <tr>
-    <th>Name</th>
+    <th><%= f.label :name, "Name" %></th>
     <td><%=f.text_field(:name) %></td>
   </tr>
   <tr>
-    <th>Add passport size photo</th>
+    <th><%= f.label :image, "Add passport size photo" %></th>
     <td><%=f.file_field :image %></td>
   </tr>
   <tr>
-    <th>Father's name</th>
+    <th><%= f.label :father_name, "Father's name" %></th>
     <td><%=f.text_field(:father_name) %></td>
   </tr>
   <tr>
-    <th>Mother's Name</th>
+    <th><%= f.label :mother_name, "Mother's Name" %></th>
     <td><%=f.text_field(:mother_name) %></td>
   </tr>
   <tr>
-    <th>Education</th>
+    <th><%= f.label :education, "Education" %></th>
     <td>
     <% if @section.section_name == "Kindergarten Section" %>
       <%=f.select(:education, ['Not Applicable']) %>
@@ -30,20 +30,20 @@
   </tr>
   <tr>
     <% unless @section.section_name == "Kindergarten Section" %>
-      <th>Marksheet</th>
+      <th><%= f.label :marksheet, "Marksheet" %></th>
       <td><%=f.file_field :marksheet %></td>
     <% end %>
   </tr>
   <tr>
-    <th>Contact Address</th>
+    <th><%= f.label :contact_address, "Contact Address" %></th>
     <td><%=f.text_area :contact_address, size: "40x3" %></td>
   </tr>
   <tr>
-    <th>Parent Contact Number</th>
+    <th><%= f.label :parent_contact_number, "Parent Contact Number" %></th>
     <td><%=f.telephone_field(:parent_contact_number) %></td>
   </tr>
   <tr>
-    <th>Alternate Parent Contact Number</th>
+    <th><%= f.label :alternate_parent_contact_number, "Parent Alternate Contact Number" %></th>
     <td><%=f.telephone_field(:alternate_parent_contact_number) %></td>
   </tr>
 </table>

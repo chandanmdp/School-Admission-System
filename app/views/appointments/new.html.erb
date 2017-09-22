@@ -2,7 +2,7 @@
   <%= link_to "<<Back to Candidate Show page", section_candidate_path(@section,@candidate), class:"btn btn-primary" %>
   <h2 class="text-center bg-primary">Schedule appointment</h2>
   <%= form_for @appointment, url: user_appointments_path do |f| %>
-  <%= error_messages_for(f.object) %>
+    <%= error_messages_for(f.object) %>
     <table class="table">
       <tr>
         <th>Name :</th>

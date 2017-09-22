@@ -23,33 +23,33 @@
           </tr>
         <% end %>
       </table>
-      <% else %>
-        <% if @candidate.present? %>
-          <h3>Candidate</h3>
-            <table class="table">
-              <tr>
-                <th>Candidate Name</th>
-                <th>Father's Name</th>
-                <th>Actions</th>
-              </tr>
-              <tr>
-                <td><%= @candidate.name %></td>
-                <td><%= @candidate.father_name %></td>
-                <td>
-                  <%= link_to("Show", section_candidate_path(@section.id,@candidate), class:'btn btn-info btn-xs')%>
-                  <%= link_to("Edit", edit_section_candidate_path(@section.id,@candidate), class:'btn btn-info btn-xs')%>
-                  <%= link_to 'Destroy', [@candidate.section, @candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
-                </td>
-              </tr>
-            </table>
-          <% end %>
-      <% end %>
-    <% end %>
-    <% if logged_in? %>
-      <% unless @user.candidate.present? %>
-        <%= link_to 'Add New Candidate', new_section_candidate_path(@section), class:'btn btn-primary' %>
-      <% end %>
     <% else %>
+      <% if @candidate.present? %>
+        <h3>Candidate</h3>
+          <table class="table">
+            <tr>
+              <th>Candidate Name</th>
+              <th>Father's Name</th>
+              <th>Actions</th>
+            </tr>
+            <tr>
+              <td><%= @candidate.name %></td>
+              <td><%= @candidate.father_name %></td>
+              <td>
+                <%= link_to("Show", section_candidate_path(@section.id,@candidate), class:'btn btn-info btn-xs')%>
+                <%= link_to("Edit", edit_section_candidate_path(@section.id,@candidate), class:'btn btn-info btn-xs')%>
+                <%= link_to 'Destroy', [@candidate.section, @candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+    <% end %>
+  <% end %>
+  <% if logged_in? %>
+    <% unless @user.candidate.present? %>
       <%= link_to 'Add New Candidate', new_section_candidate_path(@section), class:'btn btn-primary' %>
-      <% end %>
-</div>
+    <% end %>
+  <% else %>
+    <%= link_to 'Add New Candidate', new_section_candidate_path(@section), class:'btn btn-primary' %>
+  <% end %>
+</div>  

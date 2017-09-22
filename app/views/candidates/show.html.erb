@@ -20,10 +20,10 @@
       <td><%=@candidate.mother_name%></td>
     </tr>
     <% unless @candidate.education == "Not Applicable" %>
-    <tr>
-      <th>Education</th>
-      <td><%=@candidate.education%></td>
-    </tr>
+      <tr>
+        <th>Education</th>
+        <td><%=@candidate.education%></td>
+      </tr>
     <% end %>
     <tr>
       <th>Contact Address</th>
@@ -34,10 +34,10 @@
       <td><%=@candidate.parent_contact_number%></td>
     </tr>
     <% if @candidate.alternate_parent_contact_number %>
-    <tr>
-      <th>Parent's Contact Number</th>
-      <td><%=@candidate.alternate_parent_contact_number%></td>
-    </tr>
+      <tr>
+        <th>Parent's Contact Number</th>
+        <td><%=@candidate.alternate_parent_contact_number%></td>
+      </tr>
     <% end %>
   </table>
   <% if current_user.admin? %>

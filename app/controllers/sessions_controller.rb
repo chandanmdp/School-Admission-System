@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-before_action :already_logged_in , only:[:new, :create]
+  before_action :already_logged_in , only:[:new, :create]
 
   def new
   end
@@ -11,6 +11,7 @@ before_action :already_logged_in , only:[:new, :create]
         authorized_user = user.authenticate(params[:session][:password])
       end
     end
+    
     if authorized_user
       flash[:notice] = 'You are now logged in'
       log_in authorized_user

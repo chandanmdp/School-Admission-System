@@ -2,9 +2,8 @@
   <%= link_to("<< Back to Candidate show page", section_candidate_path(@section, @candidate), class:'btn btn-primary')%>
   <%= error_messages_for(@candidate) %>
   <br>
-
-    <% if @candidate.marksheet.present? %>
-      <table class="table">
+  <% if @candidate.marksheet.present? %>
+    <table class="table">
       <tr>
         <th class="text-center">Candidate's Marksheet</th>
       </tr>
@@ -12,7 +11,7 @@
         <td class="text-center"><%= image_tag @candidate.marksheet.url(:ex_large) %></td>
       </tr>
     </table>
-    <% end %>
+  <% end %>
   <h3  class="text-center bg-primary">Manage Candidate's Admission</h3>
   <br>
   <%= form_for @candidate, url: section_candidate_path do |f| %>

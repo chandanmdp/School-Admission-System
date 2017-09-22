@@ -61,8 +61,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
     def correct_user
@@ -79,5 +78,5 @@ class UsersController < ApplicationController
         redirect_to root_path
       end
     end
-    
+
 end

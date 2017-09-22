@@ -3,14 +3,12 @@
   <head>
     <title>SimpleCms</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body class= "bg-info">
     <%= render 'layouts/header' %>
-
     <% if !flash[:notice].blank? %>
       <div class="text-center bg-success">
         <h4><%= flash[:notice] %></h4>
@@ -21,7 +19,6 @@
         <h4><%= flash[:danger] %></h4>
       </div>
     <% end %>
-
     <%= yield %>
   </body>
 </html>

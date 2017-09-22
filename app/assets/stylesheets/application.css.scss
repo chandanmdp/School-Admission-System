@@ -19,11 +19,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
 .btn-width{
   width:200px;
 }
-
 .navbar-inverse {
     background-color: #337ab7;
     border-color: #337ab8;
@@ -34,12 +32,6 @@
 .navbar-inverse .navbar-nav > li > a:hover{
   color:#ccc;
 }
-@mixin box_sizing {
-  -moz-box-sizing:    border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
-}
-
 div h2{
   padding-top: 10px;
   padding-bottom: 10px;
