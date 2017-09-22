@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  has_many :candidates
+  has_one :candidate
+  has_one :appointment
+  has_many :payments
 
   has_secure_password
 

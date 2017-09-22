@@ -1,6 +1,7 @@
 class EligibilitiesController < ApplicationController
     before_action :logged_in_user, except: [:index]
     before_action :admin_user, except: [:index]
+
   def index
     @eligibilities = Eligibility.all
   end
@@ -11,6 +12,7 @@ class EligibilitiesController < ApplicationController
 
   def create
     @eligibility = Eligibility.new(eligibility_params)
+
     if @eligibility.save
       flash[:notice] = "Eligibility created successfully"
       redirect_to(eligibilities_path)
@@ -25,6 +27,7 @@ class EligibilitiesController < ApplicationController
 
   def update
     @eligibility = Eligibility.find(params[:id])
+
     if @eligibility.update_attributes(eligibility_params)
       flash[:notice] = "Eligibility updated successfully"
       redirect_to(eligibilities_path)
@@ -49,7 +52,7 @@ class EligibilitiesController < ApplicationController
   def admin_user
     unless current_user.admin?
       redirect_to(eligibilities_path)
-      flash[:notice]="You are not authorized to perform this action"
+      flash[:notice] = "You are not authorized to perform this action"
     end
   end
 

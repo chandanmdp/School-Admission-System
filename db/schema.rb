@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914055451) do
+ActiveRecord::Schema.define(version: 20170921151823) do
+
+  create_table "appointments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.datetime "datetime"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_appointments_on_user_id"
+  end
 
   create_table "candidates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
@@ -34,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170914055451) do
     t.text "rejection_reason"
     t.bigint "section_id"
     t.bigint "user_id"
+    t.string "grade", default: ""
     t.index ["section_id"], name: "index_candidates_on_section_id"
     t.index ["user_id"], name: "index_candidates_on_user_id"
   end
@@ -52,6 +61,19 @@ ActiveRecord::Schema.define(version: 20170914055451) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "payments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "payment_name"
+    t.string "payment_image_file_name"
+    t.string "payment_image_content_type"
+    t.integer "payment_image_file_size"
+    t.datetime "payment_image_updated_at"
+    t.string "payment_status", default: ""
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
   create_table "sections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "section_name"
     t.datetime "created_at", null: false
@@ -68,6 +90,8 @@ ActiveRecord::Schema.define(version: 20170914055451) do
     t.boolean "admin", default: false
   end
 
+  add_foreign_key "appointments", "users"
   add_foreign_key "candidates", "sections"
   add_foreign_key "candidates", "users"
+  add_foreign_key "payments", "users"
 end

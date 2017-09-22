@@ -18,11 +18,21 @@
   </tr>
   <tr>
     <th>Education</th>
-    <td><%=f.select(:education, ['Not Applicable', 'Kindergarten', '1st', '2nd', '3rd', '4th', '5th','6th','7th','8th','9th','10th','11th']) %></td>
+    <td>
+    <% if @section.section_name == "Kindergarten Section" %>
+      <%=f.select(:education, ['Not Applicable']) %>
+    <% elsif @section.section_name == "Junior Section (Grades 1 to 4)" %>
+      <%=f.select(:education, ['Kindergarten', '1st', '2nd', '3rd']) %>
+    <% else %>
+      <%=f.select(:education, ['4th', '5th','6th','7th','8th','9th','10th','11th']) %>
+    <% end %>
+    </td>
   </tr>
   <tr>
-    <th>Marksheet</th>
-    <td><%=f.file_field :marksheet %></td>
+    <% unless @section.section_name == "Kindergarten Section" %>
+      <th>Marksheet</th>
+      <td><%=f.file_field :marksheet %></td>
+    <% end %>
   </tr>
   <tr>
     <th>Contact Address</th>

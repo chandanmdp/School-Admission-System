@@ -1,0 +1,19 @@
+<div class="container">
+  <%= link_to("<< Back to Profile", user_path(@user), class:'btn btn-primary') %>
+  <h2 class="text-center bg-primary">Payment</h2>
+  <br>
+  <%= form_for @payment, url: user_payments_path , html: { multipart: true } do |f| %>
+    <%= error_messages_for(f.object) %>
+    <table class="table">
+      <tr>
+        <th><%= f.label :payment_name, "Payment For" %></th>
+        <td><%=f.text_field(:payment_name) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :payment_image, "Add Payment Receipt" %></th>
+        <td><%=f.file_field :payment_image %></td>
+      </tr>
+    </table>
+    <%=f.submit("Upload Payment Details")%>
+  <% end %>
+</div>

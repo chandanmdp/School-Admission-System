@@ -1,25 +1,62 @@
 <div class="container">
   <%= link_to("<<Back to menu page", access_menu_path, class:"btn btn-primary") %>
-  <h2 class="text-center bg-primary">Admission Status of Candidates</h2>
+  <h2 class="text-center bg-primary">Admission Status of Candidate</h2>
   <br>
-  <table class="table">
-    <tr>
-      <th>Name</th>
-      <th>Father's Name</th>
-      <th>Section Name</th>
-      <th>Admission Status</th>
-      <th>Rejection Reason</th>
-    </tr>
-  <% @candidates.each do |candidate| %>
-  <tr>
-    <td><%= candidate.name %></td>
-    <td><%= candidate.father_name %></td>
-    <td><%= candidate.section.section_name %></td>
-    <td><%= candidate.admission_status %></td>
-    <% if candidate.rejection_reason.present? %>
-      <td><%= candidate.rejection_reason %></td>
+  <% if current_user.admin? %>
+    <% if @candidates.size > 0 %>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Father's Name</th>
+          <th>Section Name</th>
+          <th>Admission Status</th>
+          <th>Grade</th>
+          <th>Rejection Reason</th>
+        </tr>
+        <% @candidates.each do |candidate| %>
+          <tr>
+            <td><%= candidate.name %></td>
+            <td><%= candidate.father_name %></td>
+            <td><%= candidate.section.section_name %></td>
+            <td><%= candidate.admission_status %></td>
+            <% if candidate.grade.present? %>
+              <td><%= candidate.grade %></td>
+            <% end %>
+            <% if candidate.rejection_reason.present? %>
+              <td><%= candidate.rejection_reason %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
     <% end %>
-  </tr>
-  <% end %>
-</table>
+    <% else %>
+      <% if @candidate.present? %>
+        <table class = "table">
+          <tr>
+            <th>Name</th>
+            <th>Father's Name</th>
+            <th>Section Name</th>
+            <th>Admission Status</th>
+            <% if @candidate.grade.present? %>
+              <th>Grade</th>
+            <% end %>
+            <% if @candidate.rejection_reason.present? %>
+              <th>Rejection Reason</th>
+            <% end %>
+          </tr>
+          <tr>
+            <td><%= @candidate.name %></td>
+            <td><%= @candidate.father_name %></td>
+            <td><%= @candidate.section.section_name %></td>
+            <td><%= @candidate.admission_status %></td>
+            <% if @candidate.grade.present? %>
+              <td><%= @candidate.grade %></td>
+            <% end %>
+            <% if @candidate.rejection_reason.present? %>
+              <td><%= @candidate.rejection_reason %></td>
+            <% end %>
+          </tr>
+        </table>
+      <% end %>
+    <% end %>
 </div>

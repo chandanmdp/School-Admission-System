@@ -1,29 +1,28 @@
 Rails.application.routes.draw do
 
-
-
-  get 'sessions/new'
-
   root 'access#menu'
-
+  get 'fee/index'
+  get 'sessions/new'
+  get 'appointments/index'
   get 'access/menu'
   get 'candidates/index'
+  
   get  '/signup',  to: 'users#new'
   post '/signup',  to: 'users#create'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
-
   resources :eligibilities, except: [:show]
   resources :notices
-  resources :users
+  resources :users do
+    resources :payments
+    resources :appointments
+  end
 
   resources :sections do
     resources :candidates do
-      member do
-        get :manage
-      end
+      get 'manage', on: :member
     end
   end
 

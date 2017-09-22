@@ -16,6 +16,7 @@ class NoticesController < ApplicationController
 
   def create
     @notice = Notice.new(notice_params)
+    
     if @notice.save
       flash[:notice] = "Notice created successfully"
       redirect_to(notices_path)
@@ -30,6 +31,7 @@ class NoticesController < ApplicationController
 
   def update
     @notice = Notice.find(params[:id])
+
     if @notice.update_attributes(notice_params)
       flash[:notice] = "Notice updated successfully"
       redirect_to(notices_path)

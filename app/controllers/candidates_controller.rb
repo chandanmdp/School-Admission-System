@@ -1,19 +1,19 @@
 class CandidatesController < ApplicationController
   before_action :logged_in_user
   before_action :admin_user, only: [:manage]
-  
+  before_action :find_section_and_candidate , only:[:show, :edit, :update, :destroy, :manage]
+
   def index
     if current_user.admin?
     @candidates= Candidate.sorted
     else
-    @candidates= Candidate.sorted.where("user_id=#{current_user.id}")
+    @candidate = current_user.candidate
     end
   end
 
   def show
-    @section = Section.find(params[:section_id])
-    @candidate = @section.candidates.find(params[:id])
-    correct_user
+    @user = @candidate.user
+    correct_user_or_admin
   end
 
   def new
@@ -25,6 +25,9 @@ class CandidatesController < ApplicationController
     @section = Section.find(params[:section_id])
     @candidate = @section.candidates.new(candidate_params)
     @candidate.user_id = current_user.id
+    @user = User.find_by_id(@candidate.user_id)
+    puts @user.email
+
     if @candidate.save
       flash[:notice] = "Candidate created successfully"
       redirect_to section_path(@section)
@@ -34,15 +37,12 @@ class CandidatesController < ApplicationController
   end
 
   def edit
-    @section = Section.find(params[:section_id])
-    @candidate = @section.candidates.find(params[:id])
     correct_user
   end
 
   def update
-    @section = Section.find(params[:section_id])
-    @candidate = @section.candidates.find(params[:id])
-    correct_user
+    correct_user_or_admin
+    @user = User.find_by_id(@candidate.user_id)
     if @candidate.update_attributes(candidate_params)
       flash[:notice] = "Candidate updated successfully"
       redirect_to(section_path(@section))
@@ -54,23 +54,27 @@ class CandidatesController < ApplicationController
   end
 
   def destroy
-    @section = Section.find(params[:section_id])
-    @candidate = @section.candidates.find(params[:id])
-        @candidate.destroy
-        flash[:notice] = "Candidate destroyed successfully"
-        redirect_to section_path(@section)
+    @candidate.destroy
+    flash[:notice] = "Candidate destroyed successfully"
+    redirect_to section_path(@section)
   end
 
   def manage
-    @section = Section.find(params[:section_id])
-    @candidate = @section.candidates.find(params[:id])
   end
 
   private
 
   def candidate_params
     params.require(:candidate).permit(:name, :father_name, :mother_name, :education, :contact_address,
-     :parent_contact_number, :alternate_parent_contact_number, :image, :marksheet, :admission_status, :rejection_reason)
+     :parent_contact_number, :alternate_parent_contact_number, :image, :marksheet, :admission_status,
+      :rejection_reason, :grade)
+  end
+
+  def correct_user_or_admin
+    unless @candidate.user_id == current_user.id || current_user.admin?
+      redirect_to section_path(@section) and return
+      flash[:notice]="You are not authorized"
+    end
   end
 
   def correct_user
@@ -85,6 +89,11 @@ class CandidatesController < ApplicationController
       redirect_to(root_path)
       flash[:notice]="You are not authorized to perform this action"
     end
+  end
+
+  def find_section_and_candidate
+    @section = Section.find(params[:section_id])
+    @candidate = @section.candidates.find(params[:id])
   end
 
 end

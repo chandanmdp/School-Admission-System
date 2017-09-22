@@ -1,0 +1,24 @@
+<div class="container">
+  <%= link_to "<<Back to Candidate Show page", section_candidate_path(@section,@candidate), class:"btn btn-primary" %>
+  <h2 class="text-center bg-primary">Schedule appointment</h2>
+  <%= form_for @appointment, url: user_appointments_path do |f| %>
+  <%= error_messages_for(f.object) %>
+    <table class="table">
+      <tr>
+        <th>Name :</th>
+        <td><%= @candidate.name %></td>
+      </tr>
+      <tr>
+        <th>Section :</th>
+        <td><%= @candidate.section.section_name %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :datetime, "Select date & time :" %></th>
+        <td><%= f.datetime_select :datetime %></td>
+      </tr>
+      <tr>
+        <td><%=f.submit("Create Appointment")%></td>
+      </tr>
+    </table>
+  <% end %>
+</div>

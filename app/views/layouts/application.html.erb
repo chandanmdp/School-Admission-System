@@ -16,6 +16,11 @@
         <h4><%= flash[:notice] %></h4>
       </div>
     <% end %>
+    <% if !flash[:danger].blank? %>
+      <div class="text-center bg-warning text-danger">
+        <h4><%= flash[:danger] %></h4>
+      </div>
+    <% end %>
 
     <%= yield %>
   </body>

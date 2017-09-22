@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      Hi <%= @user.name %>,<br><br>
+      We would like to inform you that you have not been selected for admission in
+      our school.The reason for rejection is mentioned below.<br>
+      <%= @candidate.rejection_reason %>.<br><br>
+      Thanks
+      <br>
+      <br>
+    </p>
+    <p>
+      Chandan Kumar<br>
+      Admission Department,<br>
+      ABC School,<br>
+      ABC City
+    </p>
+  </body>
+</html>

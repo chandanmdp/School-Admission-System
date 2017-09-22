@@ -1,19 +1,21 @@
 class SectionsController < ApplicationController
     before_action :logged_in_user, except: [:index , :show]
     before_action :admin_user, except: [:index, :show]
+    before_action :find_section, only: [:show, :edit, :update, :destroy]
+
   def index
     @sections = Section.all
   end
 
   def show
-    @section = Section.find(params[:id])
     if logged_in?
-    if current_user.admin?
-      @candidates=@section.candidates
-    else
-      @candidates= @section.candidates.where("user_id=#{current_user.id}")
+      @user = User.find(current_user.id)
+      if current_user.admin?
+        @candidates = @section.candidates
+      else
+        @candidate = @section.candidates.find_by_user_id(current_user.id)
+      end
     end
-  end
   end
 
   def new
@@ -22,6 +24,7 @@ class SectionsController < ApplicationController
 
   def create
     @section = Section.new(section_params)
+
     if @section.save
       flash[:notice] = "Section created successfully"
       redirect_to(sections_path)
@@ -31,11 +34,9 @@ class SectionsController < ApplicationController
   end
 
   def edit
-    @section = Section.find(params[:id])
   end
 
   def update
-    @section = Section.find(params[:id])
     if @section.update_attributes(section_params)
       flash[:notice] = "Section updated successfully"
       redirect_to(sections_path(@section))
@@ -45,7 +46,6 @@ class SectionsController < ApplicationController
   end
 
   def destroy
-    @section = Section.find(params[:id])
     @section.destroy
     flash[:notice] = "Section destroyed successfully"
     redirect_to sections_path
@@ -63,6 +63,10 @@ class SectionsController < ApplicationController
       redirect_to(sections_path)
       flash[:notice]="You are not authorized to perform this action"
     end
+  end
+
+  def find_section
+    @section = Section.find(params[:id])
   end
 
 end

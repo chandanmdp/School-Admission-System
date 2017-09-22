@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :show, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :already_logged_in , only:[:new, :create]
 
   def index
-    if current_user.admin? 
+    if current_user.admin?
       @users = User.all
     else
       flash[:notice] = "You are not authorized"
@@ -19,8 +20,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      flash[:notice] = "Welcome to the Sample App!"
-      redirect_to @user
+      flash[:notice] = "Welcome"
+      redirect_to root_path
     else
       render 'new'
     end
@@ -29,8 +30,9 @@ class UsersController < ApplicationController
   def show
     if current_user.admin? || current_user?(User.find(params[:id]))
       @user = User.find(params[:id])
+      @appointment = Appointment.find_by_user_id(current_user.id)
     else
-      flash[:notice] = "You are not authorized...."
+      flash[:notice] = "You are not authorized."
       redirect_to root_path
     end
   end
@@ -63,13 +65,19 @@ class UsersController < ApplicationController
                                    :password_confirmation)
     end
 
-
-
     def correct_user
       @user = User.find(params[:id])
       unless current_user?(@user)
         redirect_to(root_url)
-        flash[:notice]="You are not authorized to perform this action"
+        flash[:danger]="You are not authorized to perform this action"
       end
     end
+
+    def already_logged_in
+      if current_user.present?
+        flash[:notice] = "You are already logged in"
+        redirect_to root_path
+      end
+    end
+    
 end

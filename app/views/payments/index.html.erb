@@ -1,0 +1,17 @@
+<div class = "container">
+  <h2 class="text-center bg-primary">Payments</h2>
+  <table class="table text-center">
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.payment_name %></td>
+        <td><%= link_to 'Show', user_payment_path(@user, payment), class:'btn btn-info btn-xs' %></td>
+          <td><%= link_to 'Destroy', user_payment_path(@user, payment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %></td>
+        </tr>
+    <% end %>
+  </table>
+  <% if @user.candidate.present? %>
+  <% if @user.candidate.admission_status == "Selected" %>
+    <%= link_to "Add new payment receipt", new_user_payment_path, class:"btn btn-primary" %>
+  <% end %>
+  <% end %>
+</div>
