@@ -26,9 +26,9 @@ class CandidatesController < ApplicationController
     @candidate = @section.candidates.new(candidate_params)
     @candidate.user_id = current_user.id
     @user = User.find_by_id(@candidate.user_id)
-    puts @user.email
 
     if @candidate.save
+      UserMailer.welcome_email(@user, @candidate).deliver_later
       flash[:notice] = "Candidate created successfully"
       redirect_to section_path(@section)
     else
@@ -44,6 +44,11 @@ class CandidatesController < ApplicationController
     correct_user_or_admin
     @user = User.find_by_id(@candidate.user_id)
     if @candidate.update_attributes(candidate_params)
+      if @candidate.admission_status == "Selected"
+        UserMailer.selection_email(@user, @candidate).deliver_later
+      elsif @candidate.admission_status == "Rejected"
+        UserMailer.rejection_email(@user, @candidate).deliver_later
+      end
       flash[:notice] = "Candidate updated successfully"
       redirect_to(section_path(@section))
     elsif @candidate.admission_status.present?

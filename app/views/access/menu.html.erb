@@ -1,6 +1,6 @@
 <div class="container text-center">
   <h2 class="bg-primary">Welcome <%= current_user.name if logged_in? %> </h2>
-  <ul class="list-unstyled">
+  <ul class="list-unstyled top-margin">
     <li><%= link_to("Sections", sections_path, class:"btn btn-primary btn-width") %></li>
     <li><%= link_to("Notices", notices_path, class:"btn btn-primary btn-width") %></li>
     <li><%= link_to("Eligibility criteria", eligibilities_path, class:"btn btn-primary btn-width") %></li>

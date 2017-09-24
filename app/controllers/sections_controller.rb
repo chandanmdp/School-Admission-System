@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-    before_action :logged_in_user, except: [:index , :show]
+    before_action :logged_in_user, except: [:index]
     before_action :admin_user, except: [:index, :show]
     before_action :find_section, only: [:show, :edit, :update, :destroy]
 
@@ -8,14 +8,12 @@ class SectionsController < ApplicationController
   end
 
   def show
-    if logged_in?
       @user = User.find(current_user.id)
       if current_user.admin?
         @candidates = @section.candidates
       else
         @candidate = @section.candidates.find_by_user_id(current_user.id)
       end
-    end
   end
 
   def new

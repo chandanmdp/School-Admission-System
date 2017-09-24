@@ -2,7 +2,7 @@
   <%= link_to("<< Back to Candidate List", section_path(@section), class:'btn btn-primary')%>
   <h2 class="text-center bg-primary">Candidate Details</h2>
   <br>
-  <table class="table">
+  <table class="table text-center">
     <tr>
       <th>Candidate's Photo</th>
       <td><%= image_tag @candidate.image.url(:thumb), class: "passport-size"%></td>
