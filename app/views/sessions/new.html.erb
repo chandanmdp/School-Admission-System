@@ -11,7 +11,8 @@
         <td><%= f.password_field :password %></td>
       </tr>
     </table>
-    <%= f.submit "Log in", class: "btn btn-primary text-center" %>
+    <%= f.submit "Log in", class: "btn btn-primary" %>
   <% end %>
+  <br>
   <p class="text-center">New user? <%= link_to "Sign up now!", signup_path %></p>
 </div>

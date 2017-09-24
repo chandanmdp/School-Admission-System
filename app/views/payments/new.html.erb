@@ -7,13 +7,13 @@
     <table class="table">
       <tr>
         <th><%= f.label :payment_name, "Payment For" %></th>
-        <td><%=f.text_field(:payment_name) %></td>
+        <td><%=f.text_field :payment_name , class: 'form-control' %></td>
       </tr>
       <tr>
         <th><%= f.label :payment_image, "Add Payment Receipt" %></th>
         <td><%=f.file_field :payment_image %></td>
       </tr>
     </table>
-    <%=f.submit("Upload Payment Details")%>
+    <%= f.submit "Upload Payment Details", class: "btn btn-primary" %>
   <% end %>
 </div>

@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
-    before_action :logged_in_user, except: [:index]
-    before_action :admin_user, except: [:index, :show]
-    before_action :find_section, only: [:show, :edit, :update, :destroy]
+    before_action :logged_in_user, except:[:index]
+    before_action :admin_user, except:[:index, :show]
+    before_action :find_section, only:[:show, :edit, :update, :destroy]
 
   def index
     @sections = Section.all

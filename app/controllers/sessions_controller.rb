@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
         authorized_user = user.authenticate(params[:session][:password])
       end
     end
-    
+
     if authorized_user
       flash[:notice] = 'You are now logged in'
       log_in authorized_user

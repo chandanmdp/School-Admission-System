@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :logged_in_user
-  before_action :admin_user , only: [:update]
+  before_action :admin_user , only:[:update]
   before_action :correct_user_or_admin, only:[:show]
   before_action :find_user
 

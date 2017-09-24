@@ -2,10 +2,10 @@
 <table class="table">
   <tr>
     <th class="col-md-2"><%= f.label :notice_title, "Notice Title" %></th>
-    <td class="col-md-4"><%= f.text_field :notice_title, size:60 %></td>
+    <td class="col-md-4"><%= f.text_field :notice_title, size:60, class: 'form-control' %></td>
   </tr>
   <tr>
     <th class="col-md-2"><%= f.label :content, "Notice Content" %></th>
-    <td class="col-md-4"><%= f.text_area :content, size: '100x10'  %></td>
+    <td class="col-md-4"><%= f.text_area :content, size: '100x10' , class: 'form-control' %></td>
   </tr>
 </table>

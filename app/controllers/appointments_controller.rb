@@ -43,7 +43,7 @@ class AppointmentsController < ApplicationController
   private
 
   def datetime_params
-    params.require(:appointment).permit(:datetime)
+    params.require(:appointment).permit(:datetime, :venue)
   end
 
   def admin_user
@@ -52,5 +52,5 @@ class AppointmentsController < ApplicationController
       flash[:notice]="You are not authorized to perform this action"
     end
   end
-  
+
 end

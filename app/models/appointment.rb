@@ -1,8 +1,9 @@
 class Appointment < ApplicationRecord
   belongs_to :user
 
-  validates :user_id, uniqueness:{message: "You have already scheduled an appointment"}
+  validates :user_id, uniqueness: { message: "You have already scheduled an appointment" }
   validate :valid_date
+  validates :venue, presence: true, length: { minimum: 10 }
 
   private
 

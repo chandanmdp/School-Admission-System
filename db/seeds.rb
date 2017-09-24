@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 def candidate_image(file_name)
   File.open(File.join(Rails.root, "/app/assets/images/candidate_photos/#{file_name}.jpg"))
 end
@@ -13,7 +6,7 @@ def candidate_marksheet(file_name)
   File.open(File.join(Rails.root, "/app/assets/images/marksheet/#{file_name}.jpg"))
 end
 
-User.create([{name:"Molay kumar", email:"ckc.mdp@gmail.com", password:"molay123", password_confirmation: "molay123", admin: true},
+User.create([{name:"Molay kumar", email:"molay@gmail.com", password:"molay123", password_confirmation: "molay123", admin: true},
              { name:"Deepak kumar", email:"deepak@gmail.com", password:"deepak", password_confirmation: "deepak"},
              { name:"Abhijeet kumar", email:"abhijeet@gmail.com", password:"abhijeet", password_confirmation: "abhijeet"},
              { name:"Ankita kashyap", email:"ankita@gmail.com", password:"ankita123", password_confirmation: "ankita123"},

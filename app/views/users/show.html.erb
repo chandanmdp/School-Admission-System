@@ -7,9 +7,9 @@
       <h3 class="text-center bg-primary">Appointment Details </h3>
       <h4>Hi <%= @user.name %>, You have an appointment. Be present at the below specified venue with all the documents on
         <%= @appointment.datetime.to_s(:long) %> .
-      </h4>
+      </h4><br>
       <h4>Venue:</h4>
-      <p>Second floor, Annex building <br>ABC School,<br>XYZ City<br>PIN 642512</p>
+      <p><%= @appointment.venue %></p>
     <% else %>
       <h4>No appointments present.</h4>
     <% end %>

@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
 
-  def welcome_email(user,candidate)
+  def welcome_email(user, candidate)
     @candidate = candidate
     @user = user
     mail(to: @user.email, subject: "Application Successful")

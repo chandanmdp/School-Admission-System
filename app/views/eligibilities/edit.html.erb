@@ -2,7 +2,7 @@
   <%= link_to("List Eligibility Criterias", eligibilities_path, class:'btn btn-primary') %>
   <h2  class="text-center bg-primary">Update Eligibility Criteria</h2>
   <%= form_for @eligibility do |f| %>
-    <%= render partial: 'form', locals: {f: f} %>
-    <%=f.submit("Update Eligibility Criteria")%>
+    <%= render partial: 'form', locals: { f: f } %>
+    <%= f.submit "Update Eligibility Criteria", class: "btn btn-primary" %>
   <% end %>
 </div>

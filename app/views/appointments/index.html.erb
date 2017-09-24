@@ -6,6 +6,7 @@
           <td><%= appointment.user.name %></td>
           <td><%= appointment.user.candidate.section.section_name %></td>
           <td><%= appointment.datetime.to_s(:long) %></td>
+          <td><%= appointment.venue %></td>
           <td><%= link_to 'Destroy', user_appointment_path(appointment.user,appointment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
         </tr>
       <% end %>

@@ -3,7 +3,7 @@
   <h2 class="text-center bg-primary">Create Candidate</h2>
   <br>
   <%= form_for @candidate, url: section_candidates_path, html: { multipart: true } do |f| %>
-    <%= render partial: 'form', locals: {f: f} %>
-    <%=f.submit("Create Candidate")%>
+    <%= render partial: 'form', locals: { f: f } %>
+    <%= f.submit "Create Candidate", class: "btn btn-primary" %>
   <% end %>
 </div>

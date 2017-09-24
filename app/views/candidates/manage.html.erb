@@ -18,7 +18,7 @@
     <table class="table">
       <tr>
         <th><%= f.label(:admission_status, "Admission Status") %></th>
-        <td><%=f.select(:admission_status, ['Under Process', 'Selected', 'Rejected']) %></td>
+        <td><%= f.select(:admission_status, ['Under Process', 'Selected', 'Rejected']) %></td>
       </tr>
       <tr>
         <th><%= f.label(:rejection_reason)%></th>
@@ -26,11 +26,11 @@
       </tr>
       <tr>
         <th><%= f.label(:grade, "Admission in Grade") %></th>
-        <td><%=f.select(:grade, ['','Kindergarten', '1st', '2nd', '3rd', '4th', '5th','6th','7th','8th','9th','10th','11th', '12th']) %></td>
+        <td><%= f.select(:grade, ['','Kindergarten', '1st', '2nd', '3rd', '4th', '5th','6th','7th','8th','9th','10th','11th', '12th']) %></td>
       </tr>
     </table>
     <div class="text-center">
-    <%=f.submit("Manage Candidate Admission")%>
+    <%= f.submit "Manage Candidate Admission" ,class:"btn btn-primary" %>
     </div>
   <% end %>
 </div>

@@ -1,11 +1,11 @@
 <div class="container">
-  <%= link_to "<<Back to Candidate Show page", section_candidate_path(@section,@candidate), class:"btn btn-primary" %>
+  <%= link_to "<<Back to Candidate Show page", section_candidate_path(@section, @candidate), class:"btn btn-primary" %>
   <h2 class="text-center bg-primary">Schedule appointment</h2>
   <%= form_for @appointment, url: user_appointments_path do |f| %>
     <%= error_messages_for(f.object) %>
     <table class="table">
       <tr>
-        <th>Name :</th>
+        <th>Name:</th>
         <td><%= @candidate.name %></td>
       </tr>
       <tr>
@@ -14,10 +14,14 @@
       </tr>
       <tr>
         <th><%= f.label :datetime, "Select date & time :" %></th>
-        <td><%= f.datetime_select :datetime , start_hour: 6, end_hour: 17, minute_step: 30%></td>
+        <td><%= f.datetime_select :datetime , start_hour: 6, end_hour: 17, minute_step: 30 %></td>
       </tr>
       <tr>
-        <td><%=f.submit("Create Appointment")%></td>
+        <th><%= f.label :venue, "Venue :" %></th>
+        <td><%= f.text_area :venue , size: '60x4', class: 'form-control' %></td>
+      </tr>
+      <tr>
+        <td><%=f.submit "Create Appointment", class: "btn btn-primary" %></td>
       </tr>
     </table>
   <% end %>

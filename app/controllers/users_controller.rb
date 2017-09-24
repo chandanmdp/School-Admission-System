@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :update]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :already_logged_in , only:[:new, :create]
+  before_action :logged_in_user, only:[:index, :show, :edit, :update]
+  before_action :correct_user, only:[:edit, :update]
+  before_action :already_logged_in, only:[:new, :create]
 
   def index
     if current_user.admin?

@@ -7,7 +7,7 @@
     <tr>
       <td><%= image_tag @payment.payment_image.url(:medium) %></td>
     </tr>
-    <% if @payment.payment_status =="" %>
+    <% if @payment.payment_status == "" %>
       <tr>
         <td class="bg-primary">Payment Status will be updated soon</td>
       </tr>

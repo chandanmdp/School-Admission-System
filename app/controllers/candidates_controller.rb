@@ -1,6 +1,6 @@
 class CandidatesController < ApplicationController
   before_action :logged_in_user
-  before_action :admin_user, only: [:manage]
+  before_action :admin_user, only:[:manage]
   before_action :find_section_and_candidate , only:[:show, :edit, :update, :destroy, :manage]
 
   def index
