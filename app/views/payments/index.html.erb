@@ -16,8 +16,10 @@
   <% if @user.candidate.present? %>
     <% if @user.candidate.admission_status == "Selected" %>
       <%= link_to "Add new payment receipt", new_user_payment_path, class:"btn btn-primary" %>
+    <% else %>
+      <h4>You can add payments once you are selected for admission</h4>
     <% end %>
-  <% else %>
+  <% elsif !current_user.admin? %>
     <h4>First apply for admission.</h4>
-  <% end %> 
+  <% end %>
 </div>

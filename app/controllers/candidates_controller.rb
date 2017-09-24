@@ -59,6 +59,13 @@ class CandidatesController < ApplicationController
   end
 
   def destroy
+    if @candidate.user.appointment.present?
+      @candidate.user.appointment.destroy
+    end
+
+    if (@candidate.user.payments.size > 0)
+      @candidate.user.payments.destroy_all
+    end
     @candidate.destroy
     flash[:notice] = "Candidate destroyed successfully"
     redirect_to section_path(@section)

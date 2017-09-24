@@ -14,44 +14,52 @@
       <h4>No appointments present.</h4>
     <% end %>
   <% end %>
-  <h2 class="text-center text-primary">Candidate Details</h2>
-  <br>
-  <table class="table text-center">
-    <tr>
-      <th>Candidate's Photo</th>
-      <td><%= image_tag @user.candidate.image.url(:thumb), class: "passport-size" %></td>
-    </tr>
-    <tr>
-      <th>Name</th>
-      <td><%= @user.candidate.name %></td>
-    </tr>
-    <tr>
-      <th>Father's Name</th>
-      <td><%= @user.candidate.father_name %></td>
-    </tr>
-    <tr>
-      <th>Mother's Name</th>
-      <td><%= @user.candidate.mother_name %></td>
-    </tr>
-    <% unless @user.candidate.education == "Not Applicable" %>
+  <% if @user.candidate.present? %>
+    <h2 class="text-center text-primary">Candidate Details</h2>
+    <br>
+    <table class="table text-center">
       <tr>
-        <th>Education</th>
-        <td><%= @user.candidate.education %></td>
+        <th>Candidate's Photo</th>
+        <td><%= image_tag @user.candidate.image.url(:thumb), class: "passport-size" %></td>
       </tr>
-    <% end %>
-    <tr>
-      <th>Contact Address</th>
-      <td><%= @user.candidate.contact_address %></td>
-    </tr>
-    <tr>
-      <th>Parent's Contact Number</th>
-      <td><%= @user.candidate.parent_contact_number %></td>
-    </tr>
-    <% if @user.candidate.alternate_parent_contact_number %>
+      <tr>
+        <th>Name</th>
+        <td><%= @user.candidate.name %></td>
+      </tr>
+      <tr>
+        <th>Father's Name</th>
+        <td><%= @user.candidate.father_name %></td>
+      </tr>
+      <tr>
+        <th>Mother's Name</th>
+        <td><%= @user.candidate.mother_name %></td>
+      </tr>
+      <% unless @user.candidate.education == "Not Applicable" %>
+        <tr>
+          <th>Education</th>
+          <td><%= @user.candidate.education %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <th>Contact Address</th>
+        <td><%= @user.candidate.contact_address %></td>
+      </tr>
       <tr>
         <th>Parent's Contact Number</th>
-        <td><%= @user.candidate.alternate_parent_contact_number %></td>
+        <td><%= @user.candidate.parent_contact_number %></td>
       </tr>
-    <% end %>
-  </table>
+      <% if @user.candidate.alternate_parent_contact_number %>
+        <tr>
+          <th>Parent's Contact Number</th>
+          <td><%= @user.candidate.alternate_parent_contact_number %></td>
+        </tr>
+      <% end %>
+      <% if @user.candidate.marksheet.present? %>
+        <tr>
+          <th>Marksheet</th>
+          <td><%= image_tag @user.candidate.marksheet.url(:ex_large), class: "a1-size" %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
 </div>
