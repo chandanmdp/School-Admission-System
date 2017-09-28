@@ -1,7 +1,7 @@
 <div class ="container">
-  <span class="text-primary text-center pull-right">Logged in as :<%= @user.name %></span><br><br>
+  <span class="text-primary pull-right">Logged in as :<%= @user.name %></span><br><br>
   <% if @appointment.nil? %>
-    <h4 class="text-center">No appointments present </h4>
+    <h4>No appointments present </h4>
   <% else %>
     <% if @appointment.datetime > Time.now %>
       <h3 class="text-center bg-primary">Appointment Details </h3>
@@ -15,7 +15,7 @@
     <% end %>
   <% end %>
   <% if @user.candidate.present? %>
-    <h2 class="text-center text-primary">Candidate Details</h2>
+    <h2 class="text-center text-primary bg-primary">Candidate Details</h2>
     <br>
     <table class="table text-center">
       <tr>

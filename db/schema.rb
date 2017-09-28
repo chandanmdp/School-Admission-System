@@ -12,16 +12,16 @@
 
 ActiveRecord::Schema.define(version: 20170921151823) do
 
-  create_table "appointments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "appointments", force: :cascade do |t|
     t.datetime "datetime"
     t.string "venue"
-    t.bigint "user_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
-  create_table "candidates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "candidates", force: :cascade do |t|
     t.string "name"
     t.string "father_name"
     t.string "mother_name"
@@ -39,49 +39,49 @@ ActiveRecord::Schema.define(version: 20170921151823) do
     t.string "marksheet_content_type"
     t.integer "marksheet_file_size"
     t.datetime "marksheet_updated_at"
+    t.integer "section_id"
+    t.integer "user_id"
     t.string "admission_status", default: "Under Process"
     t.text "rejection_reason"
-    t.bigint "section_id"
-    t.bigint "user_id"
     t.string "grade", default: ""
     t.index ["section_id"], name: "index_candidates_on_section_id"
     t.index ["user_id"], name: "index_candidates_on_user_id"
   end
 
-  create_table "eligibilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "eligibilities", force: :cascade do |t|
     t.string "title"
     t.text "criteria"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "notices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "notices", force: :cascade do |t|
     t.string "notice_title"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "payments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "payments", force: :cascade do |t|
     t.string "payment_name"
     t.string "payment_image_file_name"
     t.string "payment_image_content_type"
     t.integer "payment_image_file_size"
     t.datetime "payment_image_updated_at"
     t.string "payment_status", default: ""
-    t.bigint "user_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
-  create_table "sections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "sections", force: :cascade do |t|
     t.string "section_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "username"
     t.string "email", default: "", null: false
@@ -91,8 +91,4 @@ ActiveRecord::Schema.define(version: 20170921151823) do
     t.boolean "admin", default: false
   end
 
-  add_foreign_key "appointments", "users"
-  add_foreign_key "candidates", "sections"
-  add_foreign_key "candidates", "users"
-  add_foreign_key "payments", "users"
 end

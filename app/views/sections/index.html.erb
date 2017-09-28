@@ -1,25 +1,29 @@
 <div class="container">
   <%= link_to("<<Back to menu page", access_menu_path, class:"btn btn-primary") %>
   <h2 class="text-center bg-primary">Sections</h2>
-  <table class="table">
-    <tr>
-      <th class="text-center">Section Name</th>
-    </tr>
-    <% @sections.each do |section| %>
-    <tr>
-      <td class="text-center"><%= section.section_name %></td>
-      <td>
-        <%= link_to("Show", section_path(section), class:'btn btn-info btn-xs') %>
-          <% if logged_in? %>
-          <% if current_user.admin? %>
-            <%= link_to("Edit", edit_section_path(section), class:'btn btn-info btn-xs') %>
-            <%= link_to 'Destroy', section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
+  <% if @sections.size > 0 %>
+    <table class="table">
+      <tr>
+        <th class="text-center">Section Name</th>
+      </tr>
+      <% @sections.each do |section| %>
+      <tr>
+        <td class="text-center"><%= section.section_name %></td>
+        <td>
+          <%= link_to("Show", section_path(section), class:'btn btn-info btn-xs') %>
+            <% if logged_in? %>
+            <% if current_user.admin? %>
+              <%= link_to("Edit", edit_section_path(section), class:'btn btn-info btn-xs') %>
+              <%= link_to 'Destroy', section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
+            <% end %>
           <% end %>
-        <% end %>
-       </td>
-    </tr>
-    <% end %>
-  </table>
+         </td>
+      </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <h4>No sections present</h4>
+  <% end %>
   <% if logged_in? %>
     <% if current_user.admin? %>
       <%= link_to("Add New Section", new_section_path, class:'btn btn-primary') %>
