@@ -1,5 +1,6 @@
-<div class="container">
-  <table class="table text-center">
+<div class="container  text-center">
+  <%= will_paginate %>
+  <table class="table">
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.name, user %></td>
