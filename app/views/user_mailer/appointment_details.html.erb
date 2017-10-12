@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      Hi <%= @user.name %>,<br><br>
+      We would like to inform you that the application of <%= @candidate.name %> is accepted.
+      Be present at the below specified venue with all the related documents on
+      <%= @candidate.appointment.datetime.to_s(:long) %>.<br><br>
+      Venue -<br>
+      <%= @candidate.appointment.venue %><br>
+      Thanks<br><br>
+    </p>
+    <p>
+      Chandan Kumar<br>
+      Admission Department,<br>
+      ABC School,<br>
+      ABC City
+    </p>
+  </body>
+</html>

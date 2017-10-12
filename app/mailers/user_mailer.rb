@@ -17,4 +17,10 @@ class UserMailer < ApplicationMailer
     @candidate = candidate
     mail(to: @user.email, subject: "Admission status")
   end
+
+  def appointment_details(user,candidate)
+    @user = user
+    @candidate = candidate
+    mail(to: @user.email, subject: "Appointment details")
+  end
 end

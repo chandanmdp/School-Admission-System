@@ -1,5 +1,5 @@
 <div class="container bg-info">
-  <%= link_to("<<Back to List Eligibilities", eligibilities_path, class:'btn btn-primary') %>
+  <%= link_to("<<Back to List Eligibilities", eligibilities_path) %>
   <h2 class="text-center bg-primary">Add New Eligibility Criteria</h2>
   <%= form_for @eligibility do |f| %>
     <%= render partial: 'form', locals: { f: f } %>

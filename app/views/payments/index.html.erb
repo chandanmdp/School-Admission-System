@@ -1,25 +1,21 @@
-<div class = "container">
+<div class="container">
+  <% unless current_user.admin? %>
+    <%= link_to "<<Back to profile", user_path(@user) %>
+  <% end %>
   <% if @payments.size > 0 %>
     <h2 class="text-center bg-primary">Payments</h2>
     <table class="table text-center">
       <% @payments.each do |payment| %>
         <tr>
+          <td><%= payment.candidate.name %></td>
+          <td><%= payment.candidate.section.section_name %></td>
           <td><%= payment.payment_name %></td>
-          <td><%= link_to 'Show', user_payment_path(@user, payment), class:'btn btn-info btn-xs' %></td>
-          <td><%= link_to 'Destroy', user_payment_path(@user, payment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %></td>
+          <td><%= link_to 'Show', section_candidate_payment_path(payment.candidate.section_id,payment.candidate_id,payment), class:'btn btn-info btn-xs' %></td>
+          <td><%= link_to 'Destroy', section_candidate_payment_path(payment.candidate.section_id,payment.candidate_id,payment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %></td>
         </tr>
       <% end %>
     </table>
-  <% end %>
-
-
-  <% if @user.candidate.present? %>
-    <% if @user.candidate.admission_status == "Selected" %>
-      <%= link_to "Add new payment receipt", new_user_payment_path, class:"btn btn-primary" %>
-    <% else %>
-      <h4>You can add payments once you are selected for admission</h4>
-    <% end %>
-  <% elsif !current_user.admin? %>
-    <h4>First apply for admission.</h4>
+  <% else %>
+    <h4 class="bg-gray">No payments present</h4>
   <% end %>
 </div>

@@ -19,6 +19,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.bg-body{
+  background-color: #FFF ;
+}
 .btn-width{
   width:200px;
 }
@@ -39,4 +42,16 @@ div h2{
 div h3{
   padding-top: 5px;
   padding-bottom: 5px;
+}
+.bg-gray{
+  background-color: #F1F1F1;
+  padding: 10px;
+}
+.bg-green{
+  background-color: #aeeaae;
+  padding: 10px;
+}
+.bg-red{
+  background-color: #ffe0cc;
+  padding: 10px;
 }

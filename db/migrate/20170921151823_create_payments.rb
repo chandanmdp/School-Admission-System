@@ -4,7 +4,7 @@ class CreatePayments < ActiveRecord::Migration[5.1]
       t.string :payment_name
       t.attachment :payment_image
       t.string :payment_status, default: ""
-      t.references :user, foreign_key: true
+      t.references :candidate, foreign_key: true
 
       t.timestamps
     end

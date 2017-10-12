@@ -1,8 +1,8 @@
 <div class="container">
-  <%= link_to "<<Back", user_payments_path, class:"btn btn-primary" %>
+  <%= link_to "<<Back", section_candidate_payments_path(@candidate.section_id,@candidate) %>
   <table class="table text-center">
     <tr>
-      <td class="bg-primary"><%= @payment.payment_name %></td>
+      <td class="text-primary bg-gray"><h3><%= @payment.payment_name %></h3></td>
     </tr>
     <tr>
       <td><%= image_tag @payment.payment_image.url(:medium) %></td>
@@ -19,11 +19,11 @@
     <tr>
       <td>
         <% if current_user.admin? %>
-          <h2>Manage Payment status</h2>
-          <%= form_for @payment, url: user_payment_path(@user, @payment) do |f| %>
+          <h2 class="text-primary">Manage Payment status</h2>
+          <%= form_for @payment, url: section_candidate_payment_path(@payment.candidate.section_id,@payment.candidate_id, @payment) do |f| %>
             <table class="table">
               <%= f.label :payment_status, "Payment Status" %>
-              <%= f.select(:payment_status, ['','Approved','Disapproved']) %>
+              <%= f.select(:payment_status, ['','Full paid','Payment due']) %>
             </table>
             <%= f.submit("Update Payment Status") %>
           <% end %>

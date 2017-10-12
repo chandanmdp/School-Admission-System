@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(version: 20170921151823) do
   create_table "appointments", force: :cascade do |t|
     t.datetime "datetime"
     t.string "venue"
-    t.integer "user_id"
+    t.integer "candidate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_appointments_on_user_id"
+    t.index ["candidate_id"], name: "index_appointments_on_candidate_id"
   end
 
   create_table "candidates", force: :cascade do |t|
@@ -69,10 +69,10 @@ ActiveRecord::Schema.define(version: 20170921151823) do
     t.integer "payment_image_file_size"
     t.datetime "payment_image_updated_at"
     t.string "payment_status", default: ""
-    t.integer "user_id"
+    t.integer "candidate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_payments_on_user_id"
+    t.index ["candidate_id"], name: "index_payments_on_candidate_id"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 20170921151823) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "username"
     t.string "email", default: "", null: false
     t.string "password_digest"
     t.datetime "created_at", null: false

@@ -1,17 +1,20 @@
 class PaymentsController < ApplicationController
   before_action :logged_in_user
-  before_action :admin_user , only:[:update]
-  before_action :correct_user_or_admin, only:[:show]
-  before_action :find_user
+  before_action :admin_user, only:[:update]
+  before_action :correct_user_or_admin, only:[:show, :new, :create, :destroy]
+  before_action :find_candidate_and_user, only:[:new, :create, :update]
 
   def index
     if current_user.admin?
-      @payments = Payment.all
-    elsif current_user?(@user)
-      @payments = Payment.where("user_id = #{current_user.id}")
+      @payments = Payment.order("candidate_id ASC")
     else
-      flash[:danger]="You are not authorized to perform this action"
-      redirect_to root_path
+      find_candidate_and_user
+      if current_user?(@user)
+        @payments = Payment.where("candidate_id = #{@candidate.id}")
+      else
+        flash[:danger]="You are not authorized to perform this action."
+        redirect_to root_path
+      end
     end
   end
 
@@ -21,24 +24,26 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = Payment.new(payment_params)
-    @payment.user_id = @user.id
+    @payment.candidate_id = params[:candidate_id]
+
     if @payment.save
       flash[:notice] = "Payment Receipt Successfully uploaded"
-      redirect_to user_payments_path
+      redirect_to user_path(@user)
     else
       render 'new'
     end
   end
 
   def show
-      @payment = Payment.find(params[:id])
+    @payment = Payment.find(params[:id])
+    @candidate = Candidate.find(params[:candidate_id])
   end
 
   def update
     @payment = Payment.find(params[:id])
     if @payment.update_attributes(payment_params)
       flash[:notice] = "Payment status updated"
-      redirect_to user_payments_path
+      redirect_to section_candidate_payments_path
     else
       flash[:danger] = "Payment status not updated"
       render 'show'
@@ -48,7 +53,7 @@ class PaymentsController < ApplicationController
   def destroy
     @payment = Payment.find(params[:id])
     @payment.destroy
-    redirect_to user_payments_path
+    redirect_to section_candidate_payments_path
   end
 
   private
@@ -65,13 +70,15 @@ class PaymentsController < ApplicationController
   end
 
   def correct_user_or_admin
-    unless current_user.admin? || current_user?(User.find(params[:user_id]))
+    unless current_user.admin? || current_user?(User.find(Candidate.find(params[:candidate_id]).user_id))
       redirect_to(root_path)
-      flash[:notice]="You are not authorized to perform this action"
+      flash[:danger]="You are not authorized to perform this action"
     end
   end
 
-  def find_user
-    @user = User.find(params[:user_id])
+  def find_candidate_and_user
+    @candidate = Candidate.find(params[:candidate_id])
+    @user = User.find(@candidate.user_id)
   end
+
 end

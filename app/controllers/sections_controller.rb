@@ -12,7 +12,7 @@ class SectionsController < ApplicationController
       if current_user.admin?
         @candidates = @section.candidates
       else
-        @candidate = @section.candidates.find_by_user_id(current_user.id)
+        @candidates = @section.candidates.where("user_id=#{current_user.id}")
       end
   end
 

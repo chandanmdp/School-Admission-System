@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   get 'fee/index'
   get 'sessions/new'
   get 'appointments/index'
+  get 'payments/index'
   get 'access/menu'
   get 'candidates/index'
-  
+
   get  '/signup',  to: 'users#new'
   post '/signup',  to: 'users#create'
   get    '/login',   to: 'sessions#new'
@@ -15,14 +16,13 @@ Rails.application.routes.draw do
 
   resources :eligibilities, except: [:show]
   resources :notices
-  resources :users do
-    resources :payments
-    resources :appointments
-  end
+  resources :users
 
   resources :sections do
     resources :candidates do
       get 'manage', on: :member
+      resources :appointments
+      resources :payments
     end
   end
 

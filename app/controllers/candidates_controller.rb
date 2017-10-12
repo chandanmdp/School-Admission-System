@@ -5,9 +5,13 @@ class CandidatesController < ApplicationController
 
   def index
     if current_user.admin?
-    @candidates= Candidate.sorted
+      @under_process_candidates = Candidate.where('admission_status="Under Process"')
+      @selected_candidates = Candidate.where('admission_status="Selected"')
+      @rejected_candidates = Candidate.where('admission_status="Rejected"')
     else
-    @candidate = current_user.candidate
+      @under_process_candidates = current_user.candidates.where('admission_status="Under Process"')
+      @selected_candidates = current_user.candidates.where('admission_status="Selected"')
+      @rejected_candidates = current_user.candidates.where('admission_status="Rejected"')
     end
   end
 
@@ -85,21 +89,21 @@ class CandidatesController < ApplicationController
   def correct_user_or_admin
     unless @candidate.user_id == current_user.id || current_user.admin?
       redirect_to section_path(@section) and return
-      flash[:notice]="You are not authorized"
+      flash[:danger]="You are not authorized"
     end
   end
 
   def correct_user
     unless @candidate.user_id == current_user.id
       redirect_to section_path(@section)
-      flash[:notice]="You are not authorized"
+      flash[:danger]="You are not authorized"
     end
   end
 
   def admin_user
     unless current_user.admin?
       redirect_to(root_path)
-      flash[:notice]="You are not authorized to perform this action"
+      flash[:danger]="You are not authorized to perform this action"
     end
   end
 

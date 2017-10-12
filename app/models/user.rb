@@ -1,7 +1,6 @@
 class User < ApplicationRecord
-  has_one :candidate, dependent: :destroy
-  has_one :appointment, dependent: :destroy
-  has_many :payments, dependent: :destroy
+  has_many :candidates, dependent: :destroy
+  
 
   has_secure_password
 

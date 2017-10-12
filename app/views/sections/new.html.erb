@@ -1,5 +1,5 @@
 <div class="container">
-  <%= link_to("<<Back to Section List", sections_path, class:'btn btn-primary') %>
+  <%= link_to("<<Back to Section List", sections_path) %>
   <h2 class="text-center bg-primary">Create Section</h2>
   <%= form_for @section do |f| %>
     <%= render partial: 'form', locals: { f: f } %>

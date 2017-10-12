@@ -1,5 +1,5 @@
 <div class="container">
-  <%= link_to("<< Back to Candidate show page", section_candidate_path(@section, @candidate), class:'btn btn-primary')%>
+  <%= link_to("<< Back to Candidate show page", section_candidate_path(@section, @candidate))%>
   <%= error_messages_for(@candidate) %>
   <br>
   <% if @candidate.marksheet.present? %>

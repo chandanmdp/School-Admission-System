@@ -1,7 +1,7 @@
 <div class="container">
-  <%= link_to "<<Back to Candidate Show page", section_candidate_path(@section, @candidate), class:"btn btn-primary" %>
+  <%= link_to "<<Back to Candidate Show page", section_candidate_path(@section, @candidate) %>
   <h2 class="text-center bg-primary">Schedule appointment</h2>
-  <%= form_for @appointment, url: user_appointments_path do |f| %>
+  <%= form_for @appointment, url: section_candidate_appointments_path do |f| %>
     <%= error_messages_for(f.object) %>
     <table class="table">
       <tr>

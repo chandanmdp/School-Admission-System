@@ -1,5 +1,5 @@
 <div class="container">
-  <%= link_to("<<Back to menu page", access_menu_path, class:"btn btn-primary") %>
+  <%= link_to("<<Back to menu page", access_menu_path) %>
   <h2 class="text-center bg-primary">Notices for Candidates</h2>
   <% if @notices.size > 0 %>
     <% @notices.each do |notice| %>

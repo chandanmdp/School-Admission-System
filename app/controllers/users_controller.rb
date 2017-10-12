@@ -30,7 +30,6 @@ class UsersController < ApplicationController
   def show
     if current_user.admin? || current_user?(User.find(params[:id]))
       @user = User.find(params[:id])
-      @appointment = Appointment.find_by_user_id(current_user.id)
     else
       flash[:notice] = "You are not authorized."
       redirect_to root_path

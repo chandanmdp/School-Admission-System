@@ -2,66 +2,19 @@
   <% if current_user?(@user) %>
     <span class="text-primary pull-right">Logged in as :<%= @user.name %></span><br><br>
   <% end %>
-  <% if @appointment.nil? %>
-    <h4>No appointments present </h4>
-  <% else %>
-    <% if @appointment.datetime > Time.now %>
-      <h3 class="text-center bg-primary">Appointment Details </h3>
-      <h4>Hi <%= @user.name %>, You have an appointment. Be present at the below specified venue with all the documents on
-        <%= @appointment.datetime.to_s(:long) %> .
-      </h4><br>
-      <h4>Venue:</h4>
-      <p><%= @appointment.venue %></p>
-    <% else %>
-      <h4>No appointments present.</h4>
+  <table class="table">
+    <% if @user.candidates.size > 0 %>
+      <tr><h3 class="text-primary bg-gray">Candidates</h3></tr>
+      <% @user.candidates.each do |candidate| %>
+        <tr>
+          <td><%= candidate.name %></td>
+          <td><%= candidate.section.section_name %></td>
+          <td><%= link_to "View appointment", section_candidate_appointment_path(candidate.section,candidate), class:"btn btn-sm btn-info"%></td>
+          <td><%= link_to "Add payment receipt", new_section_candidate_payment_path(candidate.section,candidate), class:"btn btn-sm btn-info" %></td>
+          <td><%= link_to "View payments", section_candidate_payments_path(candidate.section,candidate), class:"btn btn-sm btn-info" %></td>
+        </tr>
+      <% end %>
     <% end %>
-  <% end %>
-  <% if @user.candidate.present? %>
-    <h2 class="text-center text-primary bg-primary">Candidate Details</h2>
-    <br>
-    <table class="table text-center">
-      <tr>
-        <th>Candidate's Photo</th>
-        <td><%= image_tag @user.candidate.image.url(:thumb), class: "passport-size" %></td>
-      </tr>
-      <tr>
-        <th>Name</th>
-        <td><%= @user.candidate.name %></td>
-      </tr>
-      <tr>
-        <th>Father's Name</th>
-        <td><%= @user.candidate.father_name %></td>
-      </tr>
-      <tr>
-        <th>Mother's Name</th>
-        <td><%= @user.candidate.mother_name %></td>
-      </tr>
-      <% unless @user.candidate.education == "Not Applicable" %>
-        <tr>
-          <th>Education</th>
-          <td><%= @user.candidate.education %></td>
-        </tr>
-      <% end %>
-      <tr>
-        <th>Contact Address</th>
-        <td><%= @user.candidate.contact_address %></td>
-      </tr>
-      <tr>
-        <th>Parent's Contact Number</th>
-        <td><%= @user.candidate.parent_contact_number %></td>
-      </tr>
-      <% if @user.candidate.alternate_parent_contact_number %>
-        <tr>
-          <th>Parent's Contact Number</th>
-          <td><%= @user.candidate.alternate_parent_contact_number %></td>
-        </tr>
-      <% end %>
-      <% if @user.candidate.marksheet.present? %>
-        <tr>
-          <th>Marksheet</th>
-          <td><%= image_tag @user.candidate.marksheet.url(:ex_large), class: "a1-size" %></td>
-        </tr>
-      <% end %>
-    </table>
-  <% end %>
+  </table>
+
 </div>

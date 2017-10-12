@@ -7,10 +7,10 @@
           <% if current_user.admin? %>
             <li><%= link_to "Users", users_path %></li>
             <li><%= link_to("Appointments", appointments_index_path)%></li>
+            <li><%= link_to "Payments", payments_index_path %></li>
           <% else %>
             <li><%= link_to "Profile", current_user %></li>
           <% end %>
-          <li><%= link_to "Payments", user_payments_path(current_user) %></li>
           <li><%= link_to "Settings", edit_user_path(current_user) %></li>
           <li class="divider"></li>
           <li>
