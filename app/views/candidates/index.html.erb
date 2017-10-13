@@ -2,8 +2,9 @@
   <%= link_to("<<Back to menu page", access_menu_path) %>
   <h2 class="text-center bg-primary">Admission Status of Candidates</h2>
   <br>
+  <% if @candidates.size > 0 %>
     <% if @under_process_candidates.size > 0 %>
-    <h4 class="text-primary bg-gray">Candidates whose admission status is under process</h4>
+      <h4 class="text-primary bg-gray">Candidates whose admission status is under process</h4>
       <table class="table table-bordered">
         <tr>
           <th>Name</th>
@@ -65,4 +66,7 @@
         <% end %>
       </table>
     <% end %>
+  <% else %>
+    <h4 class="bg-gray">No candidates present</h4>
+  <% end %>
 </div>

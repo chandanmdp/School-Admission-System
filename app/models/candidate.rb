@@ -1,6 +1,6 @@
 class Candidate < ApplicationRecord
 
-  has_one :appointment
+  has_one :appointment, dependent: :destroy
   has_many :payments, dependent: :destroy
   belongs_to :section
   belongs_to :user

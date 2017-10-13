@@ -4,11 +4,14 @@ class CandidatesController < ApplicationController
   before_action :find_section_and_candidate , only:[:show, :edit, :update, :destroy, :manage]
 
   def index
+
     if current_user.admin?
+      @candidates = Candidate.all
       @under_process_candidates = Candidate.where('admission_status="Under Process"')
       @selected_candidates = Candidate.where('admission_status="Selected"')
       @rejected_candidates = Candidate.where('admission_status="Rejected"')
     else
+      @candidates = current_user.candidates
       @under_process_candidates = current_user.candidates.where('admission_status="Under Process"')
       @selected_candidates = current_user.candidates.where('admission_status="Selected"')
       @rejected_candidates = current_user.candidates.where('admission_status="Rejected"')

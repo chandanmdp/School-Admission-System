@@ -59,7 +59,7 @@ class SectionsController < ApplicationController
   def admin_user
     unless current_user.admin?
       redirect_to(sections_path)
-      flash[:notice]="You are not authorized to perform this action"
+      flash[:danger]="You are not authorized to perform this action"
     end
   end
 
