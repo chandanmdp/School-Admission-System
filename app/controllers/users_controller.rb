@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only:[:index, :show, :edit, :update]
-  before_action :correct_user, only:[:edit, :update]
+  before_action :correct_user_or_admin, only:[:edit, :update, :show]
   before_action :already_logged_in, only:[:new, :create]
 
   def index
@@ -28,12 +28,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if current_user.admin? || current_user?(User.find(params[:id]))
-      @user = User.find(params[:id])
-    else
-      flash[:notice] = "You are not authorized."
-      redirect_to root_path
-    end
+    @user = User.find(params[:id])
   end
 
   def edit
@@ -69,9 +64,9 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
-    def correct_user
+    def correct_user_or_admin
       @user = User.find(params[:id])
-      unless current_user?(@user)
+      unless current_user?(@user) || current_user.admin?
         redirect_to(root_url)
         flash[:danger]="You are not authorized to perform this action"
       end

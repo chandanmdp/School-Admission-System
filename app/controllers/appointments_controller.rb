@@ -5,7 +5,7 @@ class AppointmentsController < ApplicationController
   before_action :find_section_and_candidate, only:[:new, :show, :create]
 
   def index
-    @appointments = Appointment.all
+    @appointments = Appointment.order('datetime ASC')
   end
 
   def new

@@ -10,8 +10,8 @@
           <td><%= payment.candidate.name %></td>
           <td><%= payment.candidate.section.section_name %></td>
           <td><%= payment.payment_name %></td>
-          <td><%= link_to 'Show', section_candidate_payment_path(payment.candidate.section_id,payment.candidate_id,payment), class:'btn btn-info btn-xs' %></td>
-          <td><%= link_to 'Destroy', section_candidate_payment_path(payment.candidate.section_id,payment.candidate_id,payment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %></td>
+          <td><%= link_to 'Show payment', section_candidate_payment_path(payment.candidate.section_id,payment.candidate_id,payment), class:'btn btn-info btn-xs' %></td>
+          <td><%= link_to 'Destroy payment', section_candidate_payment_path(payment.candidate.section_id,payment.candidate_id,payment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %></td>
         </tr>
       <% end %>
     </table>

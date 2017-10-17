@@ -4,7 +4,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.name, user %></td>
-        <td class="text-left"><%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" },class:"btn btn-info btn-xs" %></td>
+        <td class="text-left"><%= link_to "delete user", user, method: :delete, data: { confirm: "You sure?" },class:"btn btn-info btn-xs" %></td>
       </tr>
     <% end %>
   </table>

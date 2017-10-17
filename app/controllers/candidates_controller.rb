@@ -44,20 +44,25 @@ class CandidatesController < ApplicationController
   end
 
   def edit
-    correct_user
+    correct_user_or_admin
   end
 
   def update
     correct_user_or_admin
     @user = User.find_by_id(@candidate.user_id)
     if @candidate.update_attributes(candidate_params)
-      if @candidate.admission_status == "Selected"
-        UserMailer.selection_email(@user, @candidate).deliver_later
+
+      if @candidate.admission_status == "Accepted"
+        redirect_to new_section_candidate_appointment_path(@candidate.section, @candidate)
       elsif @candidate.admission_status == "Rejected"
         UserMailer.rejection_email(@user, @candidate).deliver_later
+        flash[:notice] = "Candidate updated successfully"
+        redirect_to(section_path(@section))
+      elsif @candidate.admission_status == "Selected"
+        UserMailer.selection_email(@user, @candidate).deliver_later
+        flash[:notice] = "Candidate updated successfully"
+        redirect_to(section_path(@section))
       end
-      flash[:notice] = "Candidate updated successfully"
-      redirect_to(section_path(@section))
     elsif @candidate.admission_status.present?
       render ('manage')
     else
@@ -92,13 +97,6 @@ class CandidatesController < ApplicationController
   def correct_user_or_admin
     unless @candidate.user_id == current_user.id || current_user.admin?
       redirect_to section_path(@section) and return
-      flash[:danger]="You are not authorized"
-    end
-  end
-
-  def correct_user
-    unless @candidate.user_id == current_user.id
-      redirect_to section_path(@section)
       flash[:danger]="You are not authorized"
     end
   end

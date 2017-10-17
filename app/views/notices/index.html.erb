@@ -6,12 +6,12 @@
       <table class="table">
         <tr>
           <th class="text-center"><%= notice.notice_title %></th>
-          <td class="text-center col-sm-2">
-            <%= link_to("Show", notice_path(notice), class:'btn btn-info btn-xs')%>
+          <td class="text-center">
+            <%= link_to("Show notice", notice_path(notice), class:'btn btn-info btn-xs')%>
             <% if logged_in? %>
               <% if current_user.admin? %>
-                <%= link_to("Edit", edit_notice_path(notice), class:'btn btn-info btn-xs')%>
-                <%= link_to 'Destroy', notice_path(notice), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
+                <%= link_to("Edit notice", edit_notice_path(notice), class:'btn btn-info btn-xs')%>
+                <%= link_to 'Destroy notice', notice_path(notice), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
               <% end %>
             <% end %>
           </td>

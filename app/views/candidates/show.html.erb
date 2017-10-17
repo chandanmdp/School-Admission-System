@@ -43,7 +43,6 @@
     </table>
   <% end %>
   <% if current_user.admin? %>
-    <%= link_to("Manage Candidate's Admission", manage_section_candidate_path(@section, @candidate), class:'btn btn-primary pull-right') %>
-    <%= link_to("schedule appointment",new_section_candidate_appointment_path(@section, @candidate), class:'btn btn-primary pull-left') %>
+    <%= link_to("Manage Candidate's Application", manage_section_candidate_path(@section, @candidate), class:'btn btn-primary pull-right') %>
   <% end %>
 </div>

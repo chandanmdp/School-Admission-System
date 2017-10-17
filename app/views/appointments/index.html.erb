@@ -2,15 +2,16 @@
   <% if @appointments.size > 0 %>
     <h2 class="text-center bg-primary">Appointments</h3>
     <table class="table">
-      <% @appointments.each do |appointment| %>
-        <tr>
-          <td><%= appointment.candidate.name %></td>
-          <td><%= appointment.candidate.section.section_name %></td>
-          <td><%= appointment.datetime.to_s(:long) %></td>
-          <td><%= appointment.venue %></td>
-          <td><%= link_to 'Destroy', section_candidate_appointment_path(appointment.candidate.section_id,appointment.candidate_id,appointment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
-        </tr>
-      <% end %>
+        <% @appointments.each do |appointment| %>
+          <tr>
+            <td><%= appointment.candidate.name %></td>
+            <td><%= appointment.candidate.section.section_name %></td>
+            <td><%= appointment.datetime.to_s(:long) %></td>
+            <td><%= appointment.venue %></td>
+            <td><%= link_to "Accept or Reject Appointment", manage_section_candidate_path(appointment.candidate.section_id,appointment.candidate_id,appointment), class:'btn btn-info btn-sm' %>
+            <td><%= link_to 'Destroy appointment', section_candidate_appointment_path(appointment.candidate.section_id,appointment.candidate_id,appointment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm' %>
+          </tr>
+        <% end %>
     </table>
   <% else %>
     <h4 class="bg-gray">No Appointments present</h4>

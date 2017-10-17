@@ -9,15 +9,14 @@
       <% @sections.each do |section| %>
       <tr>
         <td class="text-center"><%= section.section_name %></td>
-        <td>
-          <%= link_to("Show", section_path(section), class:'btn btn-info btn-xs') %>
-            <% if logged_in? %>
-            <% if current_user.admin? %>
-              <%= link_to("Edit", edit_section_path(section), class:'btn btn-info btn-xs') %>
-              <%= link_to 'Destroy', section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %>
-            <% end %>
+        <td><%= link_to("Show section", section_path(section), class:'btn btn-info btn-xs') %></td>
+        <% if logged_in? %>
+          <% if current_user.admin? %>
+            <td><%= link_to("Edit section", edit_section_path(section), class:'btn btn-info btn-xs') %></td>
+            <td><%= link_to 'Destroy section', section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %></td>
           <% end %>
-         </td>
+        <% end %>
+        </td>
       </tr>
       <% end %>
     </table>
