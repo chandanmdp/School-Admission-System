@@ -18,4 +18,6 @@
 //= require bootstrap-sprockets
 document.addEventListener("turbolinks:load", function() {
   manage();
+  editSection();
+
 });

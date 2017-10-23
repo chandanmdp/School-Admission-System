@@ -1,4 +1,20 @@
 <%= error_messages_for(f.object) %>
+<% grades_array = ['Not Applicable', 'Kindergarten', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th'];
+   section_grades = f.object.section.section_grades.split(',')
+   min_grade = section_grades.first
+   max_grade = section_grades.last
+   min_index = grades_array.index(min_grade)
+   max_index = grades_array.index(max_grade)
+
+  if min_index == 1 && max_index == 1
+    grades = grades_array[min_index-1..min_index-1]
+  else
+    grades = grades_array[min_index-1..max_index-1]
+  end
+
+  education_option = grades.each { |grade| [grade] }
+%>
+
 <table class="table">
   <tr>
     <th><%= f.label :name, "Name" %></th>
@@ -19,21 +35,15 @@
   <tr>
     <th><%= f.label :education, "Education" %></th>
     <td>
-    <% if @section.section_name == "Kindergarten Section" %>
-      <%= f.select(:education, ['Not Applicable']) %>
-    <% elsif @section.section_name == "Junior Section (Grades 1 to 4)" %>
-      <%= f.select(:education, ['Kindergarten', '1st', '2nd', '3rd']) %>
-    <% else %>
-      <%= f.select(:education, ['4th', '5th','6th','7th','8th','9th','10th','11th']) %>
-    <% end %>
+      <%= f.select(:education, options_for_select(education_option)) %>
     </td>
   </tr>
-  <tr>
-    <% unless @section.section_name == "Kindergarten Section" %>
+  <% unless min_index = 1 && max_index == 1  %>
+    <tr>
       <th><%= f.label :marksheet, "Marksheet" %></th>
       <td><%= f.file_field :marksheet %></td>
-    <% end %>
-  </tr>
+    </tr>
+  <% end %>
   <tr>
     <th><%= f.label :contact_address, "Contact Address" %></th>
     <td><%= f.text_area :contact_address, size: "40x3", class: 'form-control' %></td>

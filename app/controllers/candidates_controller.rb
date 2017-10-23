@@ -7,7 +7,7 @@ class CandidatesController < ApplicationController
 
     if current_user.admin?
       @candidates = Candidate.all
-      @under_process_candidates = Candidate.where('admission_status="Under Process"')
+      @under_process_candidates = Candidate.where('admission_status="Under Process" or admission_status="Accepted" ')
       @selected_candidates = Candidate.where('admission_status="Selected"')
       @rejected_candidates = Candidate.where('admission_status="Rejected"')
     else

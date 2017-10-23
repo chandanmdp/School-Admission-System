@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20170921151823) do
 
   create_table "sections", force: :cascade do |t|
     t.string "section_name"
+    t.text "section_grades"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

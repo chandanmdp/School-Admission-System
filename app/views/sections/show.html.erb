@@ -13,12 +13,17 @@
         <tr>
           <td><%= candidate.name %></td>
           <td><%= candidate.father_name %></td>
-          <td><%= link_to("Show candidate", section_candidate_path(@section.id,candidate), class:'btn btn-info btn-xs')%></td>
-          <td><%= link_to("Edit candidate", edit_section_candidate_path(@section.id,candidate), class:'btn btn-info btn-xs')%></td>
-          <td><%= link_to 'Destroy candidate', [candidate.section, candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %></td>
+          <% if current_user.admin? %>
+            <td><%= link_to("Show and Manage candidate", section_candidate_path(@section.id,candidate), class:'btn btn-info btn-sm')%></td>
+          <% else %>
+            <td><%= link_to("Show candidate", section_candidate_path(@section.id,candidate), class:'btn btn-info btn-sm')%></td>
+          <% end %>
+          <td><%= link_to("Edit candidate", edit_section_candidate_path(@section.id,candidate), class:'btn btn-info btn-sm')%></td>
+          <td><%= link_to 'Destroy candidate', [candidate.section, candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm' %></td>
         </tr>
       <% end %>
     </table>
+  <% else %>
+    <h4 class="bg-gray">No candidates present under this section </h4>
   <% end %>
-  <%= link_to 'Add New Candidate', new_section_candidate_path(@section), class:'btn btn-primary' %>
 </div>

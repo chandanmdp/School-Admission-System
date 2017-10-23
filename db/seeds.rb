@@ -16,10 +16,10 @@ User.create([{name:"Molay kumar", email:"molay@gmail.com", password:"molay123", 
              { name:"Raman raghav", email:"raman@gmail.com", password:"ramanraghav", password_confirmation: "ramanraghav"},
              { name:"Davinder singh virdi", email:"davinder@gmail.com", password:"davinder", password_confirmation: "davinder"}])
 
-Section.create([{section_name:'Kindergarten Section'},
-                {section_name:'Junior Section (Grades 1 to 4)'},
-                {section_name:"Boy's Section (Grades 5 to 12)"},
-                {section_name:"Girl's Section (Grades 5 to 12)"}])
+Section.create([{section_name:'Kindergarten Section', section_grades: 'Kindergarten'},
+                {section_name:'Junior Section', section_grades: '1st,2nd,3rd,4th'},
+                {section_name:"Boy's Section", section_grades: '5th,6th,7th,8th,9th,10th,11th,12th'},
+                {section_name:"Girl's Section", section_grades: '5th,6th,7th,8th,9th,10th,11th,12th'}])
 
 Candidate.create!([{name:"Deepak kumar", father_name:"Pappu kumar", mother_name:"Banishava Devi",
                     image: candidate_image('deepak'), contact_address: "Peevees Mirage, Nilambur P.O., Malappuram District, Kerala. 679329",

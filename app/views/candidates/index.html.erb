@@ -17,7 +17,11 @@
             <td><%= candidate.name %></td>
             <td><%= candidate.father_name %></td>
             <td><%= candidate.section.section_name %></td>
-            <td><%= candidate.admission_status %></td>
+            <% if candidate.admission_status == 'Accepted' %>
+              <td>Application accepted and appointment scheduled</td>
+            <% else %>
+              <td>Under Process</td>
+            <% end %>
           </tr>
         <% end %>
       </table>

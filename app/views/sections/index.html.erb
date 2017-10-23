@@ -4,16 +4,30 @@
   <% if @sections.size > 0 %>
     <table class="table">
       <tr>
-        <th class="text-center">Section Name</th>
+        <th class="text-center text-primary">Section Name</th>
+        <th class="text-center text-primary">Section Grades</th>
       </tr>
       <% @sections.each do |section| %>
       <tr>
         <td class="text-center"><%= section.section_name %></td>
-        <td><%= link_to("Show section", section_path(section), class:'btn btn-info btn-xs') %></td>
+        <td class="text-center">
+          <% if section.section_grades.present?
+          section_grades = section.section_grades.split(',')
+          min_grade = section_grades.first
+          max_grade = section_grades.last
+          end %>
+          <% if min_grade == max_grade %>
+            <%= min_grade %>
+          <% else %>
+            <%= min_grade %> - <%= max_grade %>
+          <% end %>
+        </td>
+        <td><%= link_to 'Add New Candidate', new_section_candidate_path(section), class:'btn btn-primary btn-sm' %></td>
+        <td><%= link_to 'View Candidates under this section', section_path(section), class:'btn btn-info btn-sm' %></td>
         <% if logged_in? %>
           <% if current_user.admin? %>
-            <td><%= link_to("Edit section", edit_section_path(section), class:'btn btn-info btn-xs') %></td>
-            <td><%= link_to 'Destroy section', section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %></td>
+            <td><%= link_to("Edit section", edit_section_path(section), class:'btn btn-primary btn-sm') %></td>
+            <td><%= link_to 'Destroy section', section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm' %></td>
           <% end %>
         <% end %>
         </td>
