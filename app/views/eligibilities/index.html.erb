@@ -1,6 +1,5 @@
 <div class="container">
-  <%= link_to("<<Back to menu page", access_menu_path) %>
-  <h2 class="text-center bg-primary">Eligibility Criterias For Admission</h2>
+  <h2 class="text-center bg-info">Eligibility Criterias For Admission</h2>
   <% if @eligibilities.size %>
     <% @eligibilities.each do |eligibility| %>
       <table class="table">
@@ -23,7 +22,7 @@
   <% end %>
   <% if logged_in? %>
     <% if current_user.admin? %>
-      <%= link_to("Add New Eligibility Criteria", new_eligibility_path, class:'btn btn-primary') %>
+      <%= link_to("Add New Eligibility Criteria", new_eligibility_path, class:'btn btn-info') %>
     <% end %>
   <% end %>
 </div>

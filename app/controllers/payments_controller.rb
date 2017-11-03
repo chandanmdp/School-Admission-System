@@ -6,15 +6,9 @@ class PaymentsController < ApplicationController
 
   def index
     if current_user.admin?
-      @payments = Payment.order("candidate_id ASC")
+      @sections = Section.all
     else
-      find_candidate_and_user
-      if current_user?(@user)
-        @payments = Payment.where("candidate_id = #{@candidate.id}")
-      else
-        flash[:danger]="You are not authorized to perform this action."
-        redirect_to root_path
-      end
+      @candidate = Candidate.find(params[:candidate_id])
     end
   end
 
@@ -28,7 +22,7 @@ class PaymentsController < ApplicationController
 
     if @payment.save
       flash[:notice] = "Payment Receipt Successfully uploaded"
-      redirect_to user_path(@user)
+      redirect_to payments_index_path
     else
       render 'new'
     end
@@ -59,7 +53,7 @@ class PaymentsController < ApplicationController
   private
 
   def payment_params
-    params.require(:payment).permit(:payment_name, :payment_image, :payment_status)
+    params.require(:payment).permit(:payment_name, :payment_image, :payment_status, :payment_mode, :amount)
   end
 
   def admin_user

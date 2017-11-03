@@ -22,8 +22,8 @@ class AppointmentsController < ApplicationController
 
     if @appointment.save
       UserMailer.appointment_details(@user, @candidate).deliver_later
-      flash[:notice] = "appointment created successfully"
-      redirect_to section_candidate_path(@section, @candidate)
+      flash[:notice] = "Appointment created successfully"
+      redirect_to appointments_index_path
     else
       render'new'
     end
@@ -31,8 +31,16 @@ class AppointmentsController < ApplicationController
 
   def destroy
     @appointment = Appointment.find(params[:id])
-    @appointment.destroy
-    redirect_to appointments_index_path
+    if @appointment.datetime > Time.now
+      flash[:danger]="You can destroy this appointment once it's over"
+      redirect_to appointments_index_path
+    elsif @appointment.candidate.admission_status == "Accepted"
+      flash[:danger]="Manage candidate's admission before destroying appointment"
+      redirect_to appointments_index_path
+    else
+      @appointment.destroy
+      redirect_to appointments_index_path
+    end
   end
 
   private

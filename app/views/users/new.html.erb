@@ -1,7 +1,13 @@
-<div class="container text-center">
-  <h1 class="bg-primary">Sign up</h1>
-  <%= form_for(@user, url: signup_path) do |f| %>
-    <%= render partial: 'form', locals: { f:f } %>
-    <%= f.submit "Create my account", class: "btn btn-primary" %>
-   <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h2 class="text-center bg-info">Sign up</h2>
+      <%= form_for(@user, url: signup_path) do |f| %>
+        <%= render partial: 'form', locals: { f:f } %>
+        <div class="text-center">
+          <%= f.submit "Create my account", class: "btn btn-info" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

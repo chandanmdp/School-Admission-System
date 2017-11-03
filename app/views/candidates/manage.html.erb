@@ -1,7 +1,6 @@
 <div class="container">
+
   <% if @candidate.appointment.present? %>
-    <%= link_to("<< Back to candidate show page", section_candidate_path(@section,@candidate))%><br>
-    <%= link_to("<< Go to Appointments", appointments_index_path)%><br>
     <% if @candidate.errors.size > 0 %>
       <%= error_messages_for(@candidate) %>
       <%
@@ -9,7 +8,7 @@
         @index = @grades.index("#{@candidate.education}")
         @grade = @grades[@index+1]
       %>
-      <h2 class="bg-primary text-center">Manage Candidate Admission</h2>
+      <h2 class="bg-info text-center">Manage Candidate Admission</h2>
       <%= form_for @candidate, url: section_candidate_path do |f| %>
         <table class="table">
           <tr class="admission-status">
@@ -26,44 +25,48 @@
           </tr>
         </table>
         <div class="text-center">
-        <%= f.submit "Manage Candidate Admission" ,class:"btn btn-primary" %>
+        <%= f.submit "Manage Candidate Admission" ,class:"btn btn-info" %>
         </div>
       <% end %>
-    <% elsif @candidate.admission_status == "Selected" %>
-      <h4 class="bg-gray">Candidate is already selected for admission.</h4>
-    <% elsif @candidate.admission_status == "Rejected" %>
-      <h4 class="bg-gray">Candidate is already rejected.</h4>
-    <% elsif @candidate.appointment.datetime > Time.now %>
-      <h4 class="bg-gray">Appointment is scheduled for the candidate. You will be able to manage candidate's admission once the appointment is over. </h4>
     <% else %>
       <%
         @grades = ['Not Applicable', 'Kindergarten', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th']
         @index = @grades.index("#{@candidate.education}")
         @grade = @grades[@index+1]
       %>
-      <h2 class="bg-primary text-center">Manage Candidate Admission</h2>
-      <%= form_for @candidate, url: section_candidate_path do |f| %>
-        <table class="table">
-          <tr class="admission-status">
-            <th><%= f.label(:admission_status, "Admission Status") %></th>
-            <td><%= f.select(:admission_status, ['Selected', 'Rejected']) %></td>
-          </tr>
-          <tr class="rejection-reason">
-            <th><%= f.label(:rejection_reason)%></th>
-            <td><%= f.text_area :rejection_reason, size: "40x3" %></td>
-          </tr>
-          <tr class="grade">
-            <th><%= f.label(:grade, "Admission in grade")%></th>
-            <td><%= f.select :grade, ['', @grade] %></td>
-          </tr>
-        </table>
-        <div class="text-center">
-        <%= f.submit "Manage Candidate Admission" ,class:"btn btn-primary" %>
-        </div>
+      <% if @candidate.admission_status == "Selected" %>
+        <h2 class="bg-info text-center">Manage Candidate Admission</h2>
+        <h4 class="bg-gray">Candidate is already selected for admission.</h4>
+      <% elsif @candidate.admission_status == "Rejected" %>
+        <h2 class="bg-info text-center">Manage Candidate Admission</h2>
+        <h4 class="bg-gray">Candidate is already rejected.</h4>
+      <% elsif @candidate.appointment.datetime > Time.now %>
+        <h2 class="bg-info text-center">Manage Candidate Admission</h2>
+        <h4 class="bg-gray">Appointment is scheduled for the candidate. You can manage candidate's admission once the appointment is over. </h4>
+      <% else %>
+        <h2 class="bg-info text-center">Manage Candidate Admission</h2>
+        <%= form_for @candidate, url: section_candidate_path do |f| %>
+          <table class="table">
+            <tr class="admission-status">
+              <th><%= f.label(:admission_status, "Admission Status") %></th>
+              <td><%= f.select(:admission_status, ['Selected', 'Rejected']) %></td>
+            </tr>
+            <tr class="rejection-reason">
+              <th><%= f.label(:rejection_reason)%></th>
+              <td><%= f.text_area :rejection_reason, size: "40x3" %></td>
+            </tr>
+            <tr class="grade">
+              <th><%= f.label(:grade, "Admission in grade")%></th>
+              <td><%= f.select :grade, ['', @grade] %></td>
+            </tr>
+          </table>
+          <div class="text-center">
+          <%= f.submit "Manage Candidate Admission" ,class:"btn btn-info" %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   <% else %>
-    <%= link_to("<< Back to Candidate show page", section_candidate_path(@section, @candidate))%>
     <% if @candidate.errors.size > 0 %>
       <%= error_messages_for(@candidate) %>
       <br>
@@ -77,12 +80,12 @@
           </tr>
         </table>
       <% end %>
-      <h3  class="text-center bg-primary">Manage Candidate's Application</h3>
+      <h2 class="text-center bg-info">Manage Candidate's Application</h2>
       <br>
       <%= form_for @candidate, url: section_candidate_path do |f| %>
         <table class="table">
           <tr class="application-status">
-            <th><%= f.label(:admission_status, "Application Status", class:"1") %></th>
+            <th><%= f.label(:admission_status, "Application Status") %></th>
             <td><%= f.select :admission_status,options_for_select(['Accepted', 'Rejected'])%></td>
           </tr>
           <tr class="rejection">
@@ -91,15 +94,17 @@
           </tr>
         </table>
         <div class="text-center save">
-        <%= f.submit "Save and Schedule appointment", class:"btn btn-primary" %>
+        <%= f.submit "Save and Schedule appointment", class:"btn btn-info" %>
         </div>
         <div class="text-center reject">
-        <%= f.submit "Reject Candidate", class:"btn btn-primary 4" %>
+        <%= f.submit "Reject Candidate", class:"btn btn-info" %>
         </div>
       <% end %>
-    <% elsif @candidate.admission_status == "Rejected" %>
-      <h4 class="bg-gray">Candidate is already rejected.</h4>
     <% else %>
+      <% if @candidate.admission_status == "Rejected" %>
+        <h2 class="bg-info text-center">Manage Candidate Admission</h2>
+        <h4 class="bg-gray">Candidate is already rejected.</h4>
+      <% end %>
       <%= error_messages_for(@candidate) %>
       <br>
       <% if @candidate.marksheet.present? %>
@@ -112,12 +117,12 @@
           </tr>
         </table>
       <% end %>
-      <h3  class="text-center bg-primary">Manage Candidate's Application</h3>
+      <h2 class="text-center bg-info">Manage Candidate's Application</h2>
       <br>
       <%= form_for @candidate, url: section_candidate_path do |f| %>
         <table class="table">
           <tr class="application-status">
-            <th><%= f.label(:admission_status, "Application Status", class:"1") %></th>
+            <th><%= f.label(:admission_status, "Application Status") %></th>
             <td><%= f.select :admission_status,options_for_select(['Accepted', 'Rejected'])%></td>
           </tr>
           <tr class="rejection">
@@ -126,10 +131,10 @@
           </tr>
         </table>
         <div class="text-center save">
-        <%= f.submit "Save and Schedule appointment", class:"btn btn-primary" %>
+        <%= f.submit "Save and Schedule appointment", class:"btn btn-info" %>
         </div>
         <div class="text-center reject">
-        <%= f.submit "Reject Candidate", class:"btn btn-primary 4" %>
+        <%= f.submit "Reject Candidate", class:"btn btn-info" %>
         </div>
       <% end %>
     <% end %>

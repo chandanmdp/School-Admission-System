@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921151823) do
+ActiveRecord::Schema.define(version: 20171029061650) do
 
   create_table "appointments", force: :cascade do |t|
     t.datetime "datetime"
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 20170921151823) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "fees", force: :cascade do |t|
+    t.string "fee_name"
+    t.string "fee_mode"
+    t.integer "fee_amount"
+    t.integer "section_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["section_id"], name: "index_fees_on_section_id"
+  end
+
   create_table "notices", force: :cascade do |t|
     t.string "notice_title"
     t.text "content"
@@ -64,6 +74,8 @@ ActiveRecord::Schema.define(version: 20170921151823) do
 
   create_table "payments", force: :cascade do |t|
     t.string "payment_name"
+    t.integer "amount"
+    t.string "payment_mode"
     t.string "payment_image_file_name"
     t.string "payment_image_content_type"
     t.integer "payment_image_file_size"

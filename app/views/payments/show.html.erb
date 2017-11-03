@@ -1,34 +1,18 @@
 <div class="container">
-  <%= link_to "<<Back", section_candidate_payments_path(@candidate.section_id,@candidate) %>
-  <table class="table text-center">
-    <tr>
-      <td class="text-primary bg-gray"><h3><%= @payment.payment_name %></h3></td>
-    </tr>
-    <tr>
-      <td><%= image_tag @payment.payment_image.url(:medium) %></td>
-    </tr>
-    <% if @payment.payment_status == "" %>
-      <tr>
-        <td class="bg-primary">Payment Status will be updated soon</td>
-      </tr>
-    <% else %>
-      <tr>
-        <td class="bg-primary">Payment Status : <%= @payment.payment_status %></td>
-      </tr>
-    <% end %>
-    <tr>
-      <td>
-        <% if current_user.admin? %>
-          <h2 class="text-primary">Manage Payment status</h2>
-          <%= form_for @payment, url: section_candidate_payment_path(@payment.candidate.section_id,@payment.candidate_id, @payment) do |f| %>
-            <table class="table">
-              <%= f.label :payment_status, "Payment Status" %>
-              <%= f.select(:payment_status, ['','Full paid','Payment due']) %>
-            </table>
-            <%= f.submit("Update Payment Status") %>
-          <% end %>
-        <% end %>
-      </td>
-    </tr>
-  </table>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <table class=" table text-center">
+        <tr>
+          <td colspan="4" class="text-primary bg-info"><h3>Payment receipt</h3></td>
+        </tr>
+          <tr><td colspan="4"><%= image_tag @payment.payment_image.url(:medium) %></td></tr>
+          <tr class="text-big text-primary">
+            <td class="padding-top bg-light-blue">Payment name : <%= @payment.payment_name %></td>
+            <td class="padding-top bg-light-blue">Amount : <%= @payment.amount %></td>
+            <td class="padding-top bg-light-blue">Payment mode : <%= @payment.payment_mode %></td>
+            <td class="padding-top bg-light-blue">Payment Status : <%= @payment.payment_status %></td>
+          </tr>
+      </table>
+    </div>
+  </div>
 </div>

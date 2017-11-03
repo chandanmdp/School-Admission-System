@@ -20,6 +20,11 @@
         <h4 class="bg-red text-danger"><%= flash[:danger] %></h4>
       </div>
     <% end %>
-    <%= yield %>
+    <div class="wrapper">
+      <%= yield %>
+      <div class="push">
+      </div>
+    </div>
+    <%= render 'layouts/footer' %>
   </body>
 </html>

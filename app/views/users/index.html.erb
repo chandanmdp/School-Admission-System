@@ -1,11 +1,16 @@
 <div class="container  text-center">
-  <%= will_paginate %>
-  <table class="table">
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to user.name, user %></td>
-        <td class="text-left"><%= link_to "delete user", user, method: :delete, data: { confirm: "You sure?" },class:"btn btn-info btn-xs" %></td>
-      </tr>
-    <% end %>
-  </table>
+  <h2 class="text-center text-primary bg-info">Users</h2>
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4 gray-border">
+      <%= will_paginate %>
+      <table class="table">
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.name, user %></td>
+            <td class="text-left"><%= link_to "delete user", user, method: :delete, data: { confirm: "You sure?" },class:"btn btn-info btn-xs" %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>

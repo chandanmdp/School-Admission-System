@@ -6,54 +6,60 @@
    min_index = grades_array.index(min_grade)
    max_index = grades_array.index(max_grade)
 
-  if min_index == 1 && max_index == 1
-    grades = grades_array[min_index-1..min_index-1]
-  else
-    grades = grades_array[min_index-1..max_index-1]
-  end
+   if min_index == 1 && max_index == 1
+     grades = grades_array[min_index-1..min_index-1]
+   else
+     grades = grades_array[min_index-1..max_index-1]
+   end
+   education_option = grades.each { |grade| [grade] } %>
 
-  education_option = grades.each { |grade| [grade] }
-%>
-
-<table class="table">
-  <tr>
-    <th><%= f.label :name, "Name" %></th>
-    <td><%= f.text_field :name, class: 'form-control' %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :image, "Add passport size photo" %></th>
-    <td><%= f.file_field :image %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :father_name, "Father's name" %></th>
-    <td><%= f.text_field :father_name, class: 'form-control' %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :mother_name, "Mother's Name" %></th>
-    <td><%= f.text_field :mother_name, class: 'form-control' %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :education, "Education" %></th>
-    <td>
-      <%= f.select(:education, options_for_select(education_option)) %>
-    </td>
-  </tr>
-  <% unless min_index = 1 && max_index == 1  %>
-    <tr>
-      <th><%= f.label :marksheet, "Marksheet" %></th>
-      <td><%= f.file_field :marksheet %></td>
-    </tr>
-  <% end %>
-  <tr>
-    <th><%= f.label :contact_address, "Contact Address" %></th>
-    <td><%= f.text_area :contact_address, size: "40x3", class: 'form-control' %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :parent_contact_number, "Parent Contact Number" %></th>
-    <td><%= f.telephone_field :parent_contact_number, class: 'form-control' %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :alternate_parent_contact_number, "Parent Alternate Contact Number" %></th>
-    <td><%= f.telephone_field :alternate_parent_contact_number, class: 'form-control' %></td>
-  </tr>
-</table>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <table class="table">
+        <tr>
+          <th>Section Name: </th>
+          <td><%= @section.section_name %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :name, "Name" %></th>
+          <td><%= f.text_field :name, class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :image, "Add passport size photo" %></th>
+          <td><%= f.file_field :image %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :father_name, "Father's name" %></th>
+          <td><%= f.text_field :father_name, class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :mother_name, "Mother's Name" %></th>
+          <td><%= f.text_field :mother_name, class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :education, "Education" %></th>
+          <td>
+            <%= f.select(:education, options_for_select(education_option)) %>
+          </td>
+        </tr>
+        <% unless min_index = 1 && max_index == 1  %>
+          <tr>
+            <th><%= f.label :marksheet, "Marksheet" %></th>
+            <td><%= f.file_field :marksheet %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <th><%= f.label :contact_address, "Contact Address" %></th>
+          <td><%= f.text_area :contact_address, size: "40x3", class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :parent_contact_number, "Parent Contact Number" %></th>
+          <td><%= f.telephone_field :parent_contact_number, class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :alternate_parent_contact_number, "Parent Alternate Contact Number" %></th>
+          <td><%= f.telephone_field :alternate_parent_contact_number, class: 'form-control' %></td>
+        </tr>
+      </table>
+    </div>
+  </div>

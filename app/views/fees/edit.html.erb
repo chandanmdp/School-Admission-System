@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="text-center">
+    <h2 class="bg-primary">Edit Admission fee structure</h2><br>
+    <%= form_for @fee, url: fee_path do |f| %>
+
+    <% if f.object.section.present?
+      name = f.object.section.section_name end %>
+      <p id="section-name" class="hidden"><%= name %></p>
+      <%= error_messages_for(f.object) %>
+      <%= f.label :section_id, "Section :" %>
+      <%= f.select(:section_id) do %>
+        <% @sections.each do |s| -%>
+          <%= content_tag(:option, s.section_name, value: s.id) %>
+        <% end %>
+      <% end %>
+      <%= f.label :fee_name, "Fee Name :" %>
+      <%= f.text_field :fee_name %>
+      <%= f.label :fee_amount, "Fee amount :" %>
+      <%= f.text_field :fee_amount %>
+      <%= f.submit "Update fee" %>
+    <% end %>
+  </div>
+</div>

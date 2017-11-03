@@ -1,9 +1,10 @@
 <div class="container">
-  <%= link_to("<< Back to Show page", section_path(@section)) %>
-  <h2 class="text-center bg-primary">Update Candidate</h2>
+  <h2 class="text-center bg-info">Update Candidate</h2>
   <br>
   <%= form_for @candidate, url: section_candidate_path, html: { multipart: true } do |f| %>
     <%= render partial: 'form', locals: { f: f } %>
-    <%= f.submit "Update Candidate", class: "btn btn-primary" %>
+    <div class="text-center">
+      <%= f.submit "Update Candidate", class: "btn btn-info" %>
+    </div>
   <% end %>
 </div>

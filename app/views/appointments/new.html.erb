@@ -1,5 +1,4 @@
 <div class="container">
-  <%= link_to "<<Back to Candidate Show page", section_candidate_path(@section, @candidate) %>
   <h2 class="text-center bg-primary">Schedule appointment</h2>
   <%= form_for @appointment, url: section_candidate_appointments_path do |f| %>
     <%= error_messages_for(f.object) %>
@@ -14,7 +13,7 @@
       </tr>
       <tr>
         <th><%= f.label :datetime, "Select date & time :" %></th>
-        <td><%= f.datetime_select :datetime , start_hour: 0, end_hour: 18 %></td>
+        <td><%= f.datetime_select :datetime , start_hour: 00, end_hour: 23 %></td>
       </tr>
       <tr>
         <th><%= f.label :venue, "Venue :" %></th>

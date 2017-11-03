@@ -1,9 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
+      <h2 class="text-center bg-info">Update Your account</h2>
       <%= form_for(@user) do |f| %>
         <%= render partial: 'form', locals: { f:f } %>
-        <%= f.submit "Save changes", class: "btn btn-primary" %>
+        <div class="text-center">
+          <%= f.submit "Save changes", class: "btn btn-info" %>
+        </div>
       <% end %>
     </div>
   </div>

@@ -1,8 +1,7 @@
 <div class="container">
-  <%= link_to("<<Back to menu page", access_menu_path) %>
-  <h2 class="text-center bg-primary">Admission Status of Candidates</h2>
-  <br>
   <% if @candidates.size > 0 %>
+    <h2 class="text-center bg-info">Admission Status of Candidates</h2>
+    <br>
     <% if @under_process_candidates.size > 0 %>
       <h4 class="text-primary bg-gray">Candidates whose admission status is under process</h4>
       <table class="table table-bordered">
@@ -14,13 +13,20 @@
         </tr>
         <% @under_process_candidates.each do |candidate| %>
           <tr>
-            <td><%= candidate.name %></td>
+            <td><%=link_to candidate.name, section_candidate_path(candidate.section,candidate)  %></td>
             <td><%= candidate.father_name %></td>
             <td><%= candidate.section.section_name %></td>
-            <% if candidate.admission_status == 'Accepted' %>
+            <% if candidate.admission_status == 'Accepted' && candidate.appointment.present? %>
               <td>Application accepted and appointment scheduled</td>
             <% else %>
               <td>Under Process</td>
+            <% end %>
+            <% if current_user.admin? %>
+              <td><%= link_to "Manage Candidate", manage_section_candidate_path(candidate.section,candidate), class: "btn btn-info btn-sm" %></td>
+            <% end %>
+            <td><%= link_to "Edit Candidate", edit_section_candidate_path(candidate.section,candidate), class: "btn btn-info btn-sm" %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Destroy candidate', [candidate.section, candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm text-danger' %></td>
             <% end %>
           </tr>
         <% end %>
@@ -39,11 +45,15 @@
         </tr>
         <% @selected_candidates.each do |candidate| %>
           <tr>
-            <td><%= candidate.name %></td>
+            <td><%=link_to candidate.name, section_candidate_path(candidate.section,candidate)  %></td>
             <td><%= candidate.father_name %></td>
             <td><%= candidate.section.section_name %></td>
             <td><%= candidate.admission_status %></td>
             <td><%= candidate.grade %></td>
+            <td><%= link_to "Edit Candidate", edit_section_candidate_path(candidate.section,candidate), class: "btn btn-info btn-sm" %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Destroy candidate', [candidate.section, candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm text-danger' %></td>
+            <% end %>
           </tr>
         <% end %>
       </table>
@@ -61,11 +71,15 @@
         </tr>
         <% @rejected_candidates.each do |candidate| %>
           <tr>
-            <td><%= candidate.name %></td>
+            <td><%=link_to candidate.name, section_candidate_path(candidate.section,candidate)  %></td>
             <td><%= candidate.father_name %></td>
             <td><%= candidate.section.section_name %></td>
             <td><%= candidate.admission_status %></td>
             <td><%= candidate.rejection_reason %></td>
+            <td><%= link_to "Edit Candidate", edit_section_candidate_path(candidate.section,candidate), class: "btn btn-info btn-sm" %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Destroy candidate', [candidate.section, candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm text-danger' %></td>
+            <% end %>
           </tr>
         <% end %>
       </table>

@@ -1,10 +1,48 @@
-<div class="container text-center">
-  <h2 class="bg-primary">Welcome <%= current_user.name if logged_in? %> </h2>
-  <ul class="list-unstyled top-margin">
-    <li><%= link_to("Sections", sections_path, class:"btn btn-primary btn-width") %></li>
-    <li><%= link_to("Notices", notices_path, class:"btn btn-primary btn-width") %></li>
-    <li><%= link_to("Eligibility criteria", eligibilities_path, class:"btn btn-primary btn-width") %></li>
-    <li><%= link_to("Fee Structure", fee_index_path, class:"btn btn-primary btn-width") %></li>
-    <li><%= link_to("View Admission status", candidates_index_path, class:"btn btn-primary btn-width") %></li>
-  </ul>
+<div class="banner hidden-xs">
+  <%= image_tag 'slider.jpg' %>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-1 notice-eligibility">
+      <div class="bg-light-blue gray-border notice">
+        <h2 class="text-center heading bg-primary">NOTICE BOARD</h2>
+        <ul>
+          <% @notices.each do |notice| %>
+            <li><%= link_to notice.notice_title, notice_path(notice), class:"text-big" %></li>
+          <% end %>
+        </ul>
+        <br>
+        <% if logged_in? %>
+          <% if current_user.admin? %>
+            <p class="text-center"><%= link_to "Manage notices", notices_path, class:"btn btn-sm btn-info" %></p>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="bg-light-blue gray-border eligibility">
+        <h2 class="text-center heading bg-primary">ELIGIBILITY CRITERIA</h2>
+        <ul>
+          <% @eligibilities.each do |eligibility| %>
+            <div class = "title-criteria">
+              <li class="eligibility-title text-big"><%= eligibility.title %></li>
+              <ul class="list-unstyled">
+                <li class="criteria"><%= eligibility.criteria %></li>
+              </ul>
+            </div>
+          <% end %>
+        </ul>
+        <br>
+        <% if logged_in? %>
+          <% if current_user.admin? %>
+            <p class="text-center"><%= link_to "Manage eligibility criteria", eligibilities_path, class:"btn btn-sm btn-info" %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-sm-3 col-sm-offset-3 nav-links">
+      <h3 class="bg-info link shadow"><a href="<%= candidates_select_path %>">Apply for admission &raquo;</a></h3>
+      <h3 class="bg-info link shadow"><a href="<%= sections_path %>">Sections &raquo;</a></h3>
+      <h3 class="bg-info link shadow"><a href="<%= fees_path %>">Fee structure &raquo;</a></h3>
+      <h3 class="bg-info link shadow"><a href="<%= candidates_index_path %>">Admission status &raquo;</a></h3>
+    </div>
+  </div>
 </div>

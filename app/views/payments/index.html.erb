@@ -1,21 +1,89 @@
 <div class="container">
-  <% unless current_user.admin? %>
-    <%= link_to "<<Back to profile", user_path(@user) %>
-  <% end %>
-  <% if @payments.size > 0 %>
-    <h2 class="text-center bg-primary">Payments</h2>
-    <table class="table text-center">
-      <% @payments.each do |payment| %>
-        <tr>
-          <td><%= payment.candidate.name %></td>
-          <td><%= payment.candidate.section.section_name %></td>
-          <td><%= payment.payment_name %></td>
-          <td><%= link_to 'Show payment', section_candidate_payment_path(payment.candidate.section_id,payment.candidate_id,payment), class:'btn btn-info btn-xs' %></td>
-          <td><%= link_to 'Destroy payment', section_candidate_payment_path(payment.candidate.section_id,payment.candidate_id,payment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-xs' %></td>
-        </tr>
+  <h2 class="bg-info text-center">Payments</h2>
+    <% if current_user.admin? %>
+      <% counter = 0 %>
+      <% @sections.each do |section| %>
+        <% count = 0 %>
+        <% section.candidates.each do |candidate| %>
+          <% if candidate.admission_status == "Selected" %>
+            <% count = count + 1 %>
+          <% end %>
+        <% end %>
+        <% unless count == 0 %>
+          <h3 class= "text-primary text-center"><%= section.section_name %></h3>
+        <% end %>
+        <% section.candidates.each do |candidate| %>
+          <% if candidate.admission_status == "Selected" %>
+            <div class = "gray-border margin-bottom">
+              <table class="table text-center">
+                <tr class="text-big bg-light-blue">
+                  <td class="text-primary">Name: <%= candidate.name %></td><td class="text-primary"> Father's name : <%= candidate.father_name %></td>
+                  <td colspan="5"><%= link_to "Add new payment receipt", new_section_candidate_payment_path(candidate.section,candidate), class:"btn btn-primary btn-sm" %></td>
+                </tr>
+                <% if candidate.payments.size > 0 %>
+                  <% counter = counter + 1 %>
+                  <% @status = 'Payment due' %>
+                  <% i = 0 %>
+                  <% candidate.payments.each do |payment| %>
+                    <% if payment.payment_status == 'Full paid' %>
+                      <% @status = 'Full paid' %>
+                    <% end %>
+                    <tr>
+                      <th> Serial No : <%= i= i+1  %></th>
+                      <th>Payment Amount(in Rs) :</th>
+                      <td> <%= payment.amount %></td>
+                      <th>Payment mode : </th>
+                      <td><%= payment.payment_mode %></td>
+                      <td><%= link_to "show payment", section_candidate_payment_path(candidate.section,candidate,payment), class:"btn btn-sm btn-info" %></td>
+                      <td><%= link_to "Destroy payment", section_candidate_payment_path(candidate.section,candidate,payment), data:{confirm:'Are you sure'}, method: :delete,  class:"btn btn-sm btn-info" %></td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <td class="text-primary">Payment_status : </td>
+                    <% if @status == "Payment due" %>
+                      <td class="text-danger"><%= @status %></td>
+                    <% else %>
+                      <td class="text-primary"><%= @status %></td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </table>
+            </div>
+          <% end %>
+        <% end %>
       <% end %>
-    </table>
-  <% else %>
-    <h4 class="bg-gray">No payments present</h4>
-  <% end %>
+      <% if counter == 0 %>
+        <h4 class="bg-gray">No Candidates are selected for admission</h4>
+      <% end %>
+    <% else %>
+      <table class="table">
+        <% if @candidate.payments.size > 0 %>
+          <tr class="bg-info text-big text-primary"><td>Name: <%= @candidate.name %></td><td>Father's name :<%= @candidate.father_name %></td><td> Section: <%= @candidate.section.section_name %></td><td></td><td></td></tr>
+          <% @status = 'Payment due' %>
+          <% i = 0 %>
+          <% @candidate.payments.each do |payment| %>
+            <% if payment.payment_status == 'Full paid' %>
+              <% @status = 'Full paid' %>
+            <% end %>
+            <tr>
+              <th> Serial No :  <%= i= i+1  %></th>
+              <th> Payment Amount(in Rs) : </th>
+              <td><%= payment.amount %></td>
+              <th>Payment mode : </th>
+              <td><%= payment.payment_mode %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <th class="text-primary">Payment_status : </th>
+            <% if @status == "Payment due" %>
+              <th class="text-danger"><%= @status %></th>
+            <% else %>
+              <th class="text-primary"><%= @status %></th>
+            <% end %>
+          </tr>
+        <% else %>
+          <h4 class="bg-gray">No payments present for <%= @candidate.name %></h4>
+        <% end %>
+      </table>
+    <% end %>
 </div>

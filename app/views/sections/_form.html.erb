@@ -1,22 +1,16 @@
 <%= error_messages_for(f.object) %>
-
   <% if f.object.section_grades.present?
     section_grades = f.object.section_grades.split(',')
     min_grade = section_grades[0]
     max_grade = section_grades.last
-
-    end %>
-
-
+  end %>
     <p id="min-grade" class="hidden"><%= min_grade %></p>
     <p id="max-grade" class="hidden"><%= max_grade %></p>
-
-
-  <div class="center">
-    <%= f.label :section_name, "Section Name" %>
-    <%= f.text_field :section_name %>
-  </div><br>
-
+    <div class="center">
+      <%= f.label :section_name, "Section Name" %>
+      <%= f.text_field :section_name %>
+    </div>
+    <br>
   <div class="hidden">
     <div class="form-group">
       <%= f.label :section_grades %>

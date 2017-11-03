@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h2 class="bg-info text-center">Select section</h2>
+      <%= form_tag(candidates_build_path, method: :post) %>
+      <table class="table">
+        <tr>
+          <td class="text-right"><label for="section">Section :</td><td class="text-center"></label><%= select_tag "section", options_from_collection_for_select(@sections,"id","section_name") %></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-center">
+            <%= submit_tag "Apply under this section", class:"btn btn-info" %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

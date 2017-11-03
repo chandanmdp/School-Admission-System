@@ -1,7 +1,8 @@
 class CandidatesController < ApplicationController
   before_action :logged_in_user
-  before_action :admin_user, only:[:manage]
+  before_action :admin_user, only:[:manage, :destroy]
   before_action :find_section_and_candidate , only:[:show, :edit, :update, :destroy, :manage]
+  after_action :save_my_previous_url, only: [:edit]
 
   def index
 
@@ -12,7 +13,7 @@ class CandidatesController < ApplicationController
       @rejected_candidates = Candidate.where('admission_status="Rejected"')
     else
       @candidates = current_user.candidates
-      @under_process_candidates = current_user.candidates.where('admission_status="Under Process"')
+      @under_process_candidates = current_user.candidates.where('admission_status="Under Process" or admission_status="Accepted" ')
       @selected_candidates = current_user.candidates.where('admission_status="Selected"')
       @rejected_candidates = current_user.candidates.where('admission_status="Rejected"')
     end
@@ -23,9 +24,18 @@ class CandidatesController < ApplicationController
     correct_user_or_admin
   end
 
+  def select
+    @sections = Section.all
+  end
+
+  def build
+    @section = Section.find(params[:section])
+    redirect_to new_section_candidate_path(@section)
+  end
+
   def new
     @section = Section.find(params[:section_id])
-    @candidate = @section.candidates.new
+    @candidate =@section.candidates.new
   end
 
   def create
@@ -48,22 +58,28 @@ class CandidatesController < ApplicationController
   end
 
   def update
+    @back = session[:my_previous_url]
     correct_user_or_admin
     @user = User.find_by_id(@candidate.user_id)
     if @candidate.update_attributes(candidate_params)
 
-      if @candidate.admission_status == "Accepted"
-        redirect_to new_section_candidate_appointment_path(@candidate.section, @candidate)
-      elsif @candidate.admission_status == "Rejected"
-        UserMailer.rejection_email(@user, @candidate).deliver_later
+      if params[:candidate][:admission_status].present?
+        if @candidate.admission_status == "Accepted"
+          redirect_to new_section_candidate_appointment_path(@candidate.section, @candidate)
+        elsif @candidate.admission_status == "Rejected"
+          UserMailer.rejection_email(@user, @candidate).deliver_later
+          flash[:notice] = "Candidate updated successfully"
+          redirect_to(candidates_index_path)
+        elsif @candidate.admission_status == "Selected"
+          UserMailer.selection_email(@user, @candidate).deliver_later
+          flash[:notice] = "Candidate updated successfully"
+          redirect_to(candidates_index_path)
+        end
+      else
         flash[:notice] = "Candidate updated successfully"
-        redirect_to(section_path(@section))
-      elsif @candidate.admission_status == "Selected"
-        UserMailer.selection_email(@user, @candidate).deliver_later
-        flash[:notice] = "Candidate updated successfully"
-        redirect_to(section_path(@section))
+        redirect_to @back
       end
-    elsif @candidate.admission_status.present?
+    elsif params[:candidate][:admission_status].present?
       render ('manage')
     else
       render('edit')
@@ -71,16 +87,9 @@ class CandidatesController < ApplicationController
   end
 
   def destroy
-    if @candidate.user.appointment.present?
-      @candidate.user.appointment.destroy
-    end
-
-    if (@candidate.user.payments.size > 0)
-      @candidate.user.payments.destroy_all
-    end
     @candidate.destroy
     flash[:notice] = "Candidate destroyed successfully"
-    redirect_to section_path(@section)
+    redirect_to request.referer
   end
 
   def manage
@@ -111,6 +120,11 @@ class CandidatesController < ApplicationController
   def find_section_and_candidate
     @section = Section.find(params[:section_id])
     @candidate = @section.candidates.find(params[:id])
+  end
+
+  def save_my_previous_url
+    # session[:previous_url] is a Rails built-in variable to save last url.
+    session[:my_previous_url] = URI(request.referer || '').path
   end
 
 end

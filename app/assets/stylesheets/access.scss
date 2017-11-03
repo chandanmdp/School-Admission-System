@@ -8,3 +8,51 @@ div ul li{
 .top-margin{
   margin-top: 75px;
 }
+.dropdown-menu li{
+  margin-top: 0;
+}
+li.dropdown a#dropdownMenuButton{
+  margin-top: 5px;
+}
+.heading{
+  margin-top :0;
+  margin-bottom: 30px;
+}
+.dropdown-menu li a.dropdown-item{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.dropdown-menu li a.dropdown-item:hover{
+  background: #337AB7;
+}
+.banner{
+  width:100%;
+  overflow:hidden;
+}
+.notice, .eligibility{
+  height: 350px;
+  overflow-y: scroll;
+  box-shadow: 5px 5px 5px #9bc1ff;
+}
+.eligibility-title{
+  cursor: pointer;
+}
+.notice{
+  margin-bottom: 50px;
+}
+.notice-eligibility{
+  margin-top:50px;
+}
+.criteria{
+  display: none;
+}
+.link{
+  padding:10px 10px;
+}
+.nav-links{
+  margin-top: 50px;
+}
+.nav-links h3:hover{
+  background-color: #f1f1f1;
+
+}

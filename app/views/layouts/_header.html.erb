@@ -1,7 +1,15 @@
+<div class="container-fluid absolute text-center hidden-xs">
+  <% if logged_in? %>
+    <%= link_to (image_tag "logo.png", class:"logo-height-1"), root_path %>
+  <% else %>
+    <%= link_to (image_tag "logo.png", class:"logo-height-2"), root_path %>
+  <% end %>
+  <%= link_to "Marigold International School", root_path, class:"text-bigger no-underline"%>
+</div>
 <header class="navbar navbar-inverse">
   <div class="container">
     <nav>
-      <ul class="nav navbar-nav navbar-right text-center">
+      <ul class="nav navbar-nav navbar-right text-center text-big">
         <li><%= link_to "Home", root_path %></li>
         <% if logged_in? %>
           <% if current_user.admin? %>
@@ -9,11 +17,15 @@
             <li><%= link_to("Appointments", appointments_index_path)%></li>
             <li><%= link_to "Payments", payments_index_path %></li>
           <% end %>
-          <li><%= link_to "Profile", current_user %></li>
-          <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-          <li class="divider"></li>
-          <li>
-            <%= link_to "Log out", logout_path, method: :delete %>
+          <li class="dropdown btn-group">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= image_tag "user.jpg" ,class:"user-width" %>My account
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><%= link_to "My candidates", current_user, class:"dropdown-item text-center" %></li>
+              <li><%= link_to "Settings", edit_user_path(current_user), class:"dropdown-item text-center" %></li>
+              <li><%= link_to "Log out", logout_path, method: :delete, class:"dropdown-item text-center" %></li>
+            </ul>
           </li>
         <% else %>
           <li><%= link_to "Sign up", signup_path %></li>

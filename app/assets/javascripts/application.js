@@ -19,5 +19,7 @@
 document.addEventListener("turbolinks:load", function() {
   manage();
   editSection();
+  fee();
+  criteria();
 
 });

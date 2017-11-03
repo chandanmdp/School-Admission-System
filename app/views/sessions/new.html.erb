@@ -1,17 +1,24 @@
-<div class="container text-center">
-  <h1 class="text-center bg-primary">Log in</h1>
-  <%= form_for(:session, url: login_path) do |f| %>
-    <table class="table">
-      <tr>
-        <td><%= f.label :email %></td>
-        <td><%= f.email_field :email %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :password %></td>
-        <td><%= f.password_field :password %></td>
-      </tr>
-    </table>
-    <%= f.submit "Log in", class: "btn btn-primary text-center" %>
-  <% end %>
-  <p class="text-center">New user? <%= link_to "Sign up now!", signup_path %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h2 class="text-center bg-info">Log in</h2>
+      <%= form_for(:session, url: login_path) do |f| %>
+        <%= error_messages_for(f.object) %>
+        <table class="table text-center">
+          <tr>
+            <td><%= f.label :email %></td>
+            <td><%= f.email_field :email %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :password %></td>
+            <td><%= f.password_field :password %></td>
+          </tr>
+        </table>
+        <div class="text-center">
+          <%= f.submit "Log in", class: "btn btn-info text-center" %>
+        </div>
+      <% end %>
+      <p class="text-center">New user? <%= link_to "Sign up now!", signup_path %></p>
+    </div>
+  </div>
 </div>
