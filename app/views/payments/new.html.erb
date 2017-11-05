@@ -1,31 +1,37 @@
 <div class="container">
   <% if @candidate.admission_status == "Selected"%>
-    <h2 class="text-center bg-primary">Add Payment Receipt</h2>
+    <h2 class="text-center bg-info">Add Payment Receipt</h2>
     <%= form_for @payment, url: section_candidate_payments_path , html: { multipart: true } do |f| %>
       <%= error_messages_for(f.object) %>
-      <table class="table">
-        <tr>
-          <th><%= f.label :amount, "Amount in Rs." %></th>
-          <td><%=f.text_field :amount %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :payment_mode, "Payment Mode" %></th>
-          <td><%= f.select(:payment_mode, ['Credit card', 'Debit card', 'Net banking', 'UPI'], class: 'form-control') %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :payment_image, "Add Payment Receipt" %></th>
-          <td><%= f.file_field :payment_image %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :payment_status, "Payment Status" %></th>
-          <td><%= f.select(:payment_status, ['','Full paid','Payment due']) %></td>
-        </tr>
-      </table>
-      <%= f.submit "Upload Payment Details", class: "btn btn-primary" %>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <table class="table">
+            <tr>
+              <th><%= f.label :amount, "Amount in Rs." %></th>
+              <td><%=f.text_field :amount %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :payment_mode, "Payment Mode" %></th>
+              <td><%= f.select(:payment_mode, ['Credit card', 'Debit card', 'Net banking', 'UPI'], class: 'form-control') %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :payment_image, "Add Payment Receipt" %></th>
+              <td><%= f.file_field :payment_image %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :payment_status, "Payment Status" %></th>
+              <td><%= f.select(:payment_status, ['','Full paid','Payment due']) %></td>
+            </tr>
+          </table>
+          <div class="text-center">
+            <%= f.submit "Upload Payment Details", class: "btn btn-info" %>
+          </div>
+        </div>
+      </div>
     <% end %>
   <% elsif @candidate.admission_status == "Rejected"%>
     <h4 class="bg-gray">Candidate <%= @candidate.name %> is not selected fo admission in our school</h4>
   <% else %>
     <h4 class="bg-gray">You can add payment receipts once <%= @candidate.name %> is selected for admission</h4>
-  <% end %>  
+  <% end %>
 </div>

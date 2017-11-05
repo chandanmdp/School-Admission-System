@@ -7,6 +7,7 @@
         <% section.candidates.each do |candidate| %>
           <% if candidate.admission_status == "Selected" %>
             <% count = count + 1 %>
+            <% counter = counter + 1 %>
           <% end %>
         <% end %>
         <% unless count == 0 %>
@@ -21,7 +22,6 @@
                   <td colspan="5"><%= link_to "Add new payment receipt", new_section_candidate_payment_path(candidate.section,candidate), class:"btn btn-primary btn-sm" %></td>
                 </tr>
                 <% if candidate.payments.size > 0 %>
-                  <% counter = counter + 1 %>
                   <% @status = 'Payment due' %>
                   <% i = 0 %>
                   <% candidate.payments.each do |payment| %>

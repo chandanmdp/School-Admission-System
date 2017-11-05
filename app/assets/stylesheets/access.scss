@@ -49,10 +49,13 @@ li.dropdown a#dropdownMenuButton{
 .link{
   padding:10px 10px;
 }
+.link:hover{
+  padding:10px 10px;
+  box-shadow: 5px 5px 5px #808080;
+}
 .nav-links{
   margin-top: 50px;
 }
 .nav-links h3:hover{
   background-color: #f1f1f1;
-
 }

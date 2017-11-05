@@ -5,7 +5,8 @@ class AppointmentsController < ApplicationController
   before_action :find_section_and_candidate, only:[:new, :show, :create]
 
   def index
-    @appointments = Appointment.order('datetime ASC')
+    @upcoming_appointments = Appointment.where('datetime > ?', Time.now)
+    @passed_appointments = Appointment.where('datetime <= ?', Time.now)
   end
 
   def new
