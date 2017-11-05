@@ -1,6 +1,6 @@
 <div class = "container">
   <% if @appointments.size > 0 %>
-    <h2 class="text-center bg-info">Appointments</h3>
+    <h2 class="text-center bg-info">Appointments</h2>
     <table class="table">
         <% @appointments.each do |appointment| %>
           <tr>
@@ -14,6 +14,7 @@
         <% end %>
     </table>
   <% else %>
+    <h2 class="text-center bg-info">Appointments</h2>
     <h4 class="bg-gray">No Appointments present</h4>
   <% end %>
 </div>
