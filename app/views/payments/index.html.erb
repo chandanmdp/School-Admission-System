@@ -54,6 +54,7 @@
       <% end %>
       <% if counter == 0 %>
         <h4 class="bg-gray">No Candidates are selected for admission</h4>
+        <%= link_to "Manage Candidates' admission", candidates_index_path, class:"btn btn-primary" %>
       <% end %>
     <% else %>
       <table class="table">

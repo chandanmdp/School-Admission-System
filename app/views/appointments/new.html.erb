@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="text-center bg-primary">Schedule appointment</h2>
+  <h2 class="text-center bg-info">Schedule appointment</h2>
   <%= form_for @appointment, url: section_candidate_appointments_path do |f| %>
     <%= error_messages_for(f.object) %>
     <table class="table">
@@ -20,7 +20,7 @@
         <td><%= f.text_area :venue , size: '60x4', class: 'form-control' %></td>
       </tr>
       <tr>
-        <td><%=f.submit "Create Appointment", class: "btn btn-primary" %></td>
+        <td><%=f.submit "Create Appointment", class: "btn btn-info" %></td>
       </tr>
     </table>
   <% end %>

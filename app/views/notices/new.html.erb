@@ -1,7 +1,7 @@
 <div class="container">
-  <h2 class="text-center bg-primary">Create Notice</h2>
+  <h2 class="text-center bg-info">Create Notice</h2>
   <%= form_for @notice do |f| %>
     <%= render partial: 'form', locals: { f: f } %>
-    <%=f.submit "Create Notice", class: "btn btn-primary" %>
+    <%=f.submit "Create Notice", class: "btn btn-info" %>
   <% end %>
 </div>

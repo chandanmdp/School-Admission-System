@@ -1,6 +1,6 @@
 <div class="container">
   <div class="text-center">
-    <h2 class="bg-primary">Edit Admission fee structure</h2><br>
+    <h2 class="bg-primary">Edit admission fee structure</h2><br>
     <%= form_for @fee, url: fee_path do |f| %>
       <% if f.object.section.present?
       name = f.object.section.section_name end %>

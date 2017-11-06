@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="text-center bg-primary">Notices for Candidates</h2>
+  <h2 class="text-center bg-info">Notices for Candidates</h2>
   <% if @notices.size > 0 %>
     <% @notices.each do |notice| %>
       <table class="table">
@@ -22,7 +22,7 @@
   <% end %>
   <% if logged_in? %>
     <% if current_user.admin? %>
-      <%= link_to("Add New Notice", new_notice_path, class:'btn btn-primary') %>
+      <%= link_to("Add New Notice", new_notice_path, class:'btn btn-info') %>
     <% end %>
   <% end %>
 </div>

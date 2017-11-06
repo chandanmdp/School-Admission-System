@@ -59,3 +59,29 @@ Eligibility.create(title:"Admission to Class X", criteria:"As the syllabus presc
                   from the students the mark sheet and the Transfer Certificate duly countersigned by the Educational
                   Authorities of the Board concerned. In case of such admissions the schools would obtain post facto
                   approval of the Board within one month of admission of the student.")
+
+Fee.create([{section_id: 1, fee_name:"Admission fee", fee_amount:20000},
+            {section_id: 1, fee_name:"Session fee", fee_amount:3000},
+            {section_id: 1, fee_name:"Caution deposit", fee_amount:5000},
+
+            {section_id: 2, fee_name:"Admission fee", fee_amount:20000},
+            {section_id: 2, fee_name:"Library fee", fee_amount:1500},
+            {section_id: 2, fee_name:"Sports fee", fee_amount:2000},
+            {section_id: 2, fee_name:"Cultural fee", fee_amount:2000},
+            {section_id: 2, fee_name:"Session fee", fee_amount:5000},
+            {section_id: 2, fee_name:"Caution deposit", fee_amount:5000},
+
+            {section_id: 3, fee_name:"Admission fee", fee_amount:20000},
+            {section_id: 3, fee_name:"Library fee", fee_amount:2000},
+            {section_id: 3, fee_name:"Sports fee", fee_amount:2000},
+            {section_id: 3, fee_name:"Cultural fee", fee_amount:2000},
+            {section_id: 3, fee_name:"Session fee", fee_amount:6000},
+            {section_id: 3, fee_name:"Caution deposit", fee_amount:5000},
+
+            {section_id: 4, fee_name:"Admission fee", fee_amount:20000},
+            {section_id: 4, fee_name:"Library fee", fee_amount:2000},
+            {section_id: 4, fee_name:"Sports fee", fee_amount:2000},
+            {section_id: 4, fee_name:"Cultural fee", fee_amount:2500},
+            {section_id: 4, fee_name:"Session fee", fee_amount:6000},
+            {section_id: 4, fee_name:"Caution deposit", fee_amount:5000}])
+            
