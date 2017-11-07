@@ -12,7 +12,13 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "Admission Status")
   end
 
-  def rejection_email(user, candidate)
+  def appointment_rejection_email(user, candidate)
+    @user = user
+    @candidate = candidate
+    mail(to: @user.email, subject: "Admission status")
+  end
+
+  def application_rejection_email(user, candidate)
     @user = user
     @candidate = candidate
     mail(to: @user.email, subject: "Admission status")

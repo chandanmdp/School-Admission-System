@@ -20,8 +20,9 @@ class AppointmentsController < ApplicationController
     @user = User.find(@candidate.user_id)
     @appointment = Appointment.new(datetime_params)
     @appointment.candidate_id = params[:candidate_id]
-
+    @appointment.candidate.admission_status = "Appointment Pending"
     if @appointment.save
+      @appointment.candidate.save
       UserMailer.appointment_details(@user, @candidate).deliver_later
       flash[:notice] = "Appointment created successfully"
       redirect_to appointments_index_path
@@ -35,7 +36,7 @@ class AppointmentsController < ApplicationController
     if @appointment.datetime > Time.now
       flash[:danger]="You can destroy this appointment once it's over"
       redirect_to appointments_index_path
-    elsif @appointment.candidate.admission_status == "Accepted"
+    elsif @appointment.candidate.admission_status == "Appointment Pending"
       flash[:danger]="Manage candidate's admission before destroying appointment"
       redirect_to appointments_index_path
     else

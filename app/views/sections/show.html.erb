@@ -7,12 +7,13 @@
       <tr>
         <th>Candidate Name</th>
         <th>Father's Name</th>
+        <th>Admission status</th>
       </tr>
       <% @candidates.each do |candidate| %>
         <tr>
-          <td><%= candidate.name %></td>
+          <td><%= link_to candidate.name, section_candidate_path(@section.id,candidate) %></td>
           <td><%= candidate.father_name %></td>
-          <td><%= link_to("Show candidate", section_candidate_path(@section.id,candidate), class:'btn btn-info btn-sm')%></td>
+          <td><%= candidate.admission_status %></td>
           <td><%= link_to("Edit candidate", edit_section_candidate_path(@section.id,candidate), class:'btn btn-info btn-sm')%></td>
           <% if current_user.admin? %>
             <td><%= link_to 'Destroy candidate', [candidate.section, candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm' %></td>

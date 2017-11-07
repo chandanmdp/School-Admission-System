@@ -18,7 +18,6 @@
             <td><%= appointment.datetime.strftime("%d-%B-%Y") %></td>
             <td><%= appointment.datetime.strftime("%I:%M %p") %></td>
             <td><%= appointment.venue %></td>
-            <td><%= link_to "Accept or Reject Appointment", manage_section_candidate_path(appointment.candidate.section_id,appointment.candidate_id,appointment), class:'btn btn-info btn-sm' %>
             <td><%= link_to 'Destroy appointment', section_candidate_appointment_path(appointment.candidate.section_id,appointment.candidate_id,appointment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm' %>
           </tr>
         <% end %>
@@ -37,12 +36,16 @@
         </tr>
         <% @passed_appointments.each do |appointment| %>
           <tr>
-            <td><%= appointment.candidate.name %></td>
+            <td><%= link_to appointment.candidate.name, [appointment.candidate.section, appointment.candidate] %></td>
             <td><%= appointment.candidate.section.section_name %></td>
             <td><%= appointment.datetime.strftime("%d-%B-%Y") %></td>
             <td><%= appointment.datetime.strftime("%I:%M %p") %></td>
             <td><%= appointment.venue %></td>
-            <td><%= link_to "Accept or Reject Appointment", manage_section_candidate_path(appointment.candidate.section_id,appointment.candidate_id,appointment), class:'btn btn-info btn-sm' %>
+            <% if appointment.candidate.admission_status == "Appointment Pending" %>
+              <td><%= link_to "Accept or Reject Appointment", manage_section_candidate_path(appointment.candidate.section_id,appointment.candidate_id,appointment), class:'btn btn-info btn-sm' %>
+            <% else %>
+              <td></td>
+            <% end %>
             <td><%= link_to 'Destroy appointment', section_candidate_appointment_path(appointment.candidate.section_id,appointment.candidate_id,appointment), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm' %>
           </tr>
         <% end %>
@@ -50,6 +53,6 @@
   <% end %>
   <% if @upcoming_appointments.size == 0 && @passed_appointments.size == 0 %>
     <h4 class="bg-gray">No Appointments present</h4>
+    <%= link_to "Manage Candidates' admission", candidates_index_path, class:"btn btn-primary" %>
   <% end %>
-  <%= link_to "Manage Candidates' admission", candidates_index_path, class:"btn btn-primary" %>
 </div>

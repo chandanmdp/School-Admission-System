@@ -2,17 +2,27 @@
   <h2 class="text-center bg-info">Appointment Details </h2>
   <% if @candidate.appointment.present? %>
     <% if @candidate.appointment.datetime > Time.now %>
-      <div class="col-sm-6 col-sm-offset-3 bg-gray">
-        <h4>The application of <%= @candidate.name %> is accepted. Be present at the below specified venue with all the documents on
-          <%= @candidate.appointment.datetime.to_s(:long) %> .
+      <div class="col-sm-6 col-sm-offset-3 bg-gray gray-border">
+        <h4>The application of <%= @candidate.name %> is accepted. Be present at the below specified venue with all the documents at
+           the below specified timing and venue.
         </h4><br>
+        <h4>date:</h4>
+        <div>
+          <span class="text-big">date :</span>
+          <%= appointment.datetime.strftime("%d-%B-%Y") %>
+        </div>
+        <div>
+          <span class="text-big">Time :</span>
+          <%= appointment.datetime.strftime("%I:%M %p") %>
+        </div>
+        <br>
+        <h4>Time:
         <h4>Venue:</h4>
         <p><%= @candidate.appointment.venue %></p>
       </div>
     <% else %>
       <div>
-        <br>
-        <h4>No appointment present for <%= @candidate.name %></h4>
+        <h4 class="bg-gray">Your appointment has passed. You will be notified about admission once the shortlisting starts.</h4>
       </div>
     <% end %>
   <% else %>

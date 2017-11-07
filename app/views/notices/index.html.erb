@@ -4,9 +4,8 @@
     <% @notices.each do |notice| %>
       <table class="table">
         <tr>
-          <th class="text-center"><%= notice.notice_title %></th>
+          <th class="text-center"><%= link_to notice.notice_title, notice_path(notice)%></th>
           <td class="text-center">
-            <%= link_to("Show notice", notice_path(notice), class:'btn btn-info btn-sm')%>
             <% if logged_in? %>
               <% if current_user.admin? %>
                 <%= link_to("Edit notice", edit_notice_path(notice), class:'btn btn-info btn-sm')%>

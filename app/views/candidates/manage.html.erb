@@ -13,7 +13,7 @@
         <table class="table">
           <tr class="admission-status">
             <th><%= f.label(:admission_status, "Admission Status") %></th>
-            <td><%= f.select(:admission_status, ['Selected', 'Rejected']) %></td>
+            <td><%= f.select(:admission_status, [['Selected','Selected'], ['Rejected','Appointment Rejected']]) %></td>
           </tr>
           <tr class="rejection-reason">
             <th><%= f.label(:rejection_reason)%></th>
@@ -37,7 +37,7 @@
       <% if @candidate.admission_status == "Selected" %>
         <h2 class="bg-info text-center">Manage Candidate Admission</h2>
         <h4 class="bg-gray">Candidate is already selected for admission.</h4>
-      <% elsif @candidate.admission_status == "Rejected" %>
+      <% elsif @candidate.admission_status == "Appointment Rejected" %>
         <h2 class="bg-info text-center">Manage Candidate Admission</h2>
         <h4 class="bg-gray">Candidate is already rejected.</h4>
       <% elsif @candidate.appointment.datetime > Time.now %>
@@ -49,7 +49,7 @@
           <table class="table">
             <tr class="admission-status">
               <th><%= f.label(:admission_status, "Admission Status") %></th>
-              <td><%= f.select(:admission_status, ['Selected', 'Rejected']) %></td>
+              <td><%= f.select(:admission_status, [['Selected','Selected'], ['Rejected','Appointment Rejected']]) %></td>
             </tr>
             <tr class="rejection-reason">
               <th><%= f.label(:rejection_reason)%></th>
@@ -86,7 +86,7 @@
         <table class="table">
           <tr class="application-status">
             <th><%= f.label(:admission_status, "Application Status") %></th>
-            <td><%= f.select :admission_status,options_for_select(['Accepted', 'Rejected'])%></td>
+            <td><%= f.select :admission_status,options_for_select([['Accepted','Under process'], ['Rejected','Application Rejected']])%></td>
           </tr>
           <tr class="rejection">
             <th><%= f.label(:rejection_reason )%></th>
@@ -101,9 +101,9 @@
         </div>
       <% end %>
     <% else %>
-      <% if @candidate.admission_status == "Rejected" %>
+      <% if @candidate.admission_status == "Application Rejected" %>
         <h2 class="bg-info text-center">Manage Candidate Admission</h2>
-        <h4 class="bg-gray">Candidate is already rejected.</h4>
+        <h4 class="bg-gray">Candidate's Application is already rejected.</h4>
       <% end %>
       <%= error_messages_for(@candidate) %>
       <br>
@@ -123,7 +123,7 @@
         <table class="table">
           <tr class="application-status">
             <th><%= f.label(:admission_status, "Application Status") %></th>
-            <td><%= f.select :admission_status,options_for_select(['Accepted', 'Rejected'])%></td>
+            <td><%= f.select :admission_status,options_for_select([['Accepted','Under Process'], ['Rejected','Application Rejected']])%></td>
           </tr>
           <tr class="rejection">
             <th><%= f.label(:rejection_reason )%></th>
@@ -134,7 +134,7 @@
         <%= f.submit "Save and Schedule appointment", class:"btn btn-info" %>
         </div>
         <div class="text-center reject">
-        <%= f.submit "Reject Candidate", class:"btn btn-info" %>
+        <%= f.submit "Reject Candidate's application", class:"btn btn-info" %>
         </div>
       <% end %>
     <% end %>

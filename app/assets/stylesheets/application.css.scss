@@ -100,9 +100,6 @@ div h3{
 .dropdown{
   margin-top: 0;
 }
-.dropdown:hover .dropdown-menu {
-    display: block;
- }
 .absolute{
   position:absolute;
   z-index: 2;
@@ -134,4 +131,7 @@ height: 60px;
 .privacy-policy{
   border-left: 1px solid #337AB7;
   padding-left:10px;
+}
+.padding-bottom{
+  padding-bottom: 20px;
 }

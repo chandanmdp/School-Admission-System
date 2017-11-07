@@ -1,22 +1,15 @@
 class CandidatesController < ApplicationController
   before_action :logged_in_user
-  before_action :admin_user, only:[:manage, :destroy]
+  before_action :admin_user, only:[:manage, :destroy, :index]
   before_action :find_section_and_candidate , only:[:show, :edit, :update, :destroy, :manage]
   after_action :save_my_previous_url, only: [:edit]
 
   def index
-
-    if current_user.admin?
-      @candidates = Candidate.all
-      @under_process_candidates = Candidate.where('admission_status="Under Process" or admission_status="Accepted" ')
-      @selected_candidates = Candidate.where('admission_status="Selected"')
-      @rejected_candidates = Candidate.where('admission_status="Rejected"')
-    else
-      @candidates = current_user.candidates
-      @under_process_candidates = current_user.candidates.where('admission_status="Under Process" or admission_status="Accepted" ')
-      @selected_candidates = current_user.candidates.where('admission_status="Selected"')
-      @rejected_candidates = current_user.candidates.where('admission_status="Rejected"')
-    end
+    @candidates = Candidate.all
+    @under_process_candidates = Candidate.where('admission_status="Under Process"')
+    @accepted_candidates = Candidate.where('admission_status="Appointment Pending"')
+    @selected_candidates = Candidate.where('admission_status="Selected"')
+    @rejected_candidates = Candidate.where('admission_status="Application Rejected" or admission_status="Appointment Rejected"')
   end
 
   def show
@@ -64,10 +57,14 @@ class CandidatesController < ApplicationController
     if @candidate.update_attributes(candidate_params)
 
       if params[:candidate][:admission_status].present?
-        if @candidate.admission_status == "Accepted"
+        if @candidate.admission_status == "Under Process"
           redirect_to new_section_candidate_appointment_path(@candidate.section, @candidate)
-        elsif @candidate.admission_status == "Rejected"
-          UserMailer.rejection_email(@user, @candidate).deliver_later
+        elsif @candidate.admission_status == "Application Rejected"
+          UserMailer.application_rejection_email(@user, @candidate).deliver_later
+          flash[:notice] = "Candidate updated successfully"
+          redirect_to(candidates_index_path)
+        elsif @candidate.admission_status == "Appointment Rejected"
+          UserMailer.appointment_rejection_email(@user, @candidate).deliver_later
           flash[:notice] = "Candidate updated successfully"
           redirect_to(candidates_index_path)
         elsif @candidate.admission_status == "Selected"

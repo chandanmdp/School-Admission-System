@@ -3,7 +3,7 @@
     <h2 class="text-center bg-info">Candidate Details</h2>
     <br>
     <div class="row">
-      <div class="col-sm-6 col-sm-offset-3 gray-border">
+      <div class="col-sm-6 col-sm-offset-3 gray-border padding-bottom">
         <table class="table text-center">
           <tr>
             <th>Candidate's Photo</th>
@@ -37,15 +37,36 @@
           </tr>
           <% if @candidate.alternate_parent_contact_number %>
             <tr>
-              <th>Parent's Contact Number</th>
+              <th>Parent's Alternate Contact Number</th>
               <td><%= @candidate.alternate_parent_contact_number %></td>
+            </tr>
+          <% end %>
+          <tr class="text-info">
+            <th>Admission status</th>
+            <td><%= @candidate.admission_status %></td>
+          </tr>
+          <% if @candidate.admission_status == "Selected" %>
+            <tr class="text-info">
+              <th>Admission in grade</th>
+              <td><%= @candidate.grade %></td>
+            </tr>
+          <% end %>
+          <% if @candidate.admission_status == "Application Rejected" || @candidate.admission_status == "Appointment Rejected" %>
+            <tr class="text-info">
+              <th>Rejection reason</th>
+              <td><%= @candidate.rejection_reason %></td>
             </tr>
           <% end %>
         </table>
         <div class="text-right">
-          <%= link_to "Edit candidate", edit_section_candidate_path(@candidate.section,@candidate),class:"btn btn-info" %>
+          <%= link_to "Edit candidate", edit_section_candidate_path(@candidate.section,@candidate),class:"btn btn-info text-left" %>
+          <% if current_user.admin? %>
+            <% if @candidate.admission_status == "Under Process" || @candidate.admission_status == "Appointment Pending" %>
+              <%= link_to "Manage candidate", manage_section_candidate_path(@candidate.section,@candidate),class:"btn btn-info text-right" %>
+            <% end %>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>

@@ -1,6 +1,6 @@
 function manage(){
       $(".application-status select").change(function(){
-        if ($(this).val() == "Rejected"){
+        if ($(this).val() == "Appointment Rejected" || $(this).val() == "Application Rejected"){
           $('.rejection').show();
           $('.reject').show();
           $('.save').hide();
@@ -12,7 +12,7 @@ function manage(){
         }
       });
       $(".admission-status select").change(function(){
-        if ($(this).val() == "Rejected"){
+        if ($(this).val() == "Appointment Rejected" || $(this).val() == "Application Rejected"){
           $('.rejection-reason').show();
           $('.grade').hide();
         }

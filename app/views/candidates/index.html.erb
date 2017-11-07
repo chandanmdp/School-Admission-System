@@ -16,11 +16,34 @@
             <td><%=link_to candidate.name, section_candidate_path(candidate.section,candidate)  %></td>
             <td><%= candidate.father_name %></td>
             <td><%= candidate.section.section_name %></td>
-            <% if candidate.admission_status == 'Accepted' && candidate.appointment.present? %>
-              <td>Application accepted and appointment scheduled</td>
-            <% else %>
-              <td>Under Process</td>
+            <td><%= candidate.admission_status %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to "Manage Candidate", manage_section_candidate_path(candidate.section,candidate), class: "btn btn-info btn-sm" %></td>
             <% end %>
+            <td><%= link_to "Edit Candidate", edit_section_candidate_path(candidate.section,candidate), class: "btn btn-info btn-sm" %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Destroy candidate', [candidate.section, candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm text-danger' %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+
+    <% if @accepted_candidates.size > 0 %>
+      <h4 class="text-primary bg-gray">Candidates whose appointment is scheduled</h4>
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>Father's Name</th>
+          <th>Section Name</th>
+          <th>Admission Status</th>
+        </tr>
+        <% @accepted_candidates.each do |candidate| %>
+          <tr>
+            <td><%=link_to candidate.name, section_candidate_path(candidate.section,candidate)  %></td>
+            <td><%= candidate.father_name %></td>
+            <td><%= candidate.section.section_name %></td>
+            <td><%= candidate.admission_status %></td>
             <% if current_user.admin? %>
               <td><%= link_to "Manage Candidate", manage_section_candidate_path(candidate.section,candidate), class: "btn btn-info btn-sm" %></td>
             <% end %>

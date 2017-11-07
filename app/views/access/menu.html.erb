@@ -42,7 +42,11 @@
       <h3 class="bg-light-blue link shadow"><a href="<%= candidates_select_path %>">Apply for admission &raquo;</a></h3>
       <h3 class="bg-light-blue link shadow"><a href="<%= sections_path %>">Sections &raquo;</a></h3>
       <h3 class="bg-light-blue link shadow"><a href="<%= fees_path %>">Fee structure &raquo;</a></h3>
-      <h3 class="bg-light-blue link shadow"><a href="<%= candidates_index_path %>">Admission status &raquo;</a></h3>
+      <% if logged_in? %>
+        <% if current_user.admin? %>
+          <h3 class="bg-light-blue link shadow"><a href="<%= candidates_index_path %>">Manage admission status &raquo;</a></h3>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

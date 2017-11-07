@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      Hi <%= @candidate.name %>,<br><br>
+      We would like to inform you that your application has not been selected.
+      The reason for rejection is mentioned below.<br><br>
+      <%= @candidate.rejection_reason %>.<br><br>
+      Thanks
+      <br>
+      <br>
+    </p>
+    <p>
+      Chandan Kumar<br>
+      Admission Department,<br>
+      Marigold International School<br>
+      Sec-V, Kolkata
+    </p>
+  </body>
+</html>

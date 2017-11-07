@@ -2,13 +2,23 @@
   <table class="table">
     <tr><h3 class="text-primary bg-gray">Candidates</h3></tr>
     <% if @user.candidates.size > 0 %>
+      <tr>
+        <th>Name</th>
+        <th>Section</th>
+        <th>Admission status</th>
+      </tr>
       <% @user.candidates.each do |candidate| %>
         <tr>
           <td><%=link_to candidate.name, [candidate.section, candidate] %></td>
           <td><%= candidate.section.section_name %></td>
-          <td><%= link_to "View appointment", section_candidate_appointment_path(candidate.section,candidate), class:"btn btn-sm btn-info"%></td>
+          <td><%= candidate.admission_status %></td>
+          <% if candidate.admission_status == 'Appointment Pending' %>
+            <td><%= link_to "View appointment", section_candidate_appointment_path(candidate.section,candidate), class:"btn btn-sm btn-info"%></td>
+          <% end %>
           <% unless current_user.admin? %>
-            <td><%= link_to "View payments", section_candidate_payments_path(candidate.section,candidate), class:"btn btn-sm btn-info" %></td>
+            <% if candidate.admission_status == 'Selected' %>
+              <td><%= link_to "View payments", section_candidate_payments_path(candidate.section,candidate), class:"btn btn-sm btn-info" %></td>
+            <% end %>
           <% end %>
           <td><%= link_to "Edit candidate", edit_section_candidate_path(candidate.section, candidate), class:"btn btn-sm btn-info"%></td>
           <% if current_user.admin? %>
@@ -22,5 +32,4 @@
     <% end %>
   </table>
   <%= link_to "Add new candidate", candidates_select_path, class:"btn btn-primary" %>
-  <%= link_to "View Admission status", candidates_index_path, class:"btn btn-primary" %>
 </div>
