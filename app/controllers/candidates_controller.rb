@@ -4,6 +4,7 @@ class CandidatesController < ApplicationController
   before_action :find_section_and_candidate , only:[:show, :edit, :update, :destroy, :manage]
   after_action :save_my_previous_url, only: [:edit]
 
+
   def index
     @candidates = Candidate.all
     @under_process_candidates = Candidate.where('admission_status="Under Process"')
@@ -48,6 +49,12 @@ class CandidatesController < ApplicationController
 
   def edit
     correct_user_or_admin
+    unless current_user.admin?
+      if @candidate.admission_status == "Appointment Rejected" || @candidate.admission_status == "Selected" || @candidate.admission_status == "Application Rejected"
+        redirect_to root_path
+        flash[:danger] = "You can't edit the candidate now."
+      end
+    end
   end
 
   def update
@@ -123,5 +130,7 @@ class CandidatesController < ApplicationController
     # session[:previous_url] is a Rails built-in variable to save last url.
     session[:my_previous_url] = URI(request.referer || '').path
   end
+
+
 
 end

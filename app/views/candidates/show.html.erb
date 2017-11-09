@@ -59,7 +59,14 @@
           <% end %>
         </table>
         <div class="text-right">
-          <%= link_to "Edit candidate", edit_section_candidate_path(@candidate.section,@candidate),class:"btn btn-info text-left" %>
+          <% if current_user.admin? %>
+            <%= link_to "Edit candidate", edit_section_candidate_path(@candidate.section,@candidate),class:"btn btn-info text-left" %>
+          <% else %>
+            <% unless @candidate.admission_status == "Appointment Rejected" || @candidate.admission_status == "Selected" || @candidate.admission_status == "Application Rejected" %>
+              <%= link_to "Edit candidate", edit_section_candidate_path(@candidate.section,@candidate),class:"btn btn-info text-left" %>
+            <% end %>
+          <% end %>
+
           <% if current_user.admin? %>
             <% if @candidate.admission_status == "Under Process" || @candidate.admission_status == "Appointment Pending" %>
               <%= link_to "Manage candidate", manage_section_candidate_path(@candidate.section,@candidate),class:"btn btn-info text-right" %>
