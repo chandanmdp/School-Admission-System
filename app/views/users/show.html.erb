@@ -22,10 +22,6 @@
           <% end %>
           <% if current_user.admin? %>
             <%= link_to "Edit candidate", edit_section_candidate_path(candidate.section,candidate),class:"btn btn-info text-left" %>
-          <% else %>
-            <% unless candidate.admission_status == "Appointment Rejected" || candidate.admission_status == "Selected" || candidate.admission_status == "Application Rejected" %>
-              <%= link_to "Edit candidate", edit_section_candidate_path(candidate.section,candidate),class:"btn btn-info text-left" %>
-            <% end %>
           <% end %>
           <% if current_user.admin? %>
             <td><%= link_to 'Destroy candidate', [candidate.section, candidate], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-info btn-sm text-danger' %></td>

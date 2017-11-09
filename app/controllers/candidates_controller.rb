@@ -1,6 +1,6 @@
 class CandidatesController < ApplicationController
   before_action :logged_in_user
-  before_action :admin_user, only:[:manage, :destroy, :index]
+  before_action :admin_user, only:[:manage, :destroy, :index, :edit]
   before_action :find_section_and_candidate , only:[:show, :edit, :update, :destroy, :manage]
   after_action :save_my_previous_url, only: [:edit]
 
@@ -49,12 +49,6 @@ class CandidatesController < ApplicationController
 
   def edit
     correct_user_or_admin
-    unless current_user.admin?
-      if @candidate.admission_status == "Appointment Rejected" || @candidate.admission_status == "Selected" || @candidate.admission_status == "Application Rejected"
-        redirect_to root_path
-        flash[:danger] = "You can't edit the candidate now."
-      end
-    end
   end
 
   def update
